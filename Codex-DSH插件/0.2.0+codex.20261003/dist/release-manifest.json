@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "project": "codex-dsh-desktop",
+  "version": "0.2.0+codex.20261003",
+  "packagingRevision": "20261010-repository-organization",
+  "repository": "https://github.com/ccl4-56-23-5/Codex-Plugins",
+  "sourcePath": "Codex-DSH插件/0.2.0+codex.20261003",
+  "releaseTag": "codex-dsh-v0.2.0",
+  "assets": [
+    {
+      "file": "codex-dsh-desktop-0.2.0.zip",
+      "bytes": 3437847,
+      "sha256": "f7ba1030cc533b229969bde5285ada96a709d6e209de6166aed58c6808176b34"
+    }
+  ],
+  "testedAt": "2026-10-03",
+  "testedDshVersion": "0.2.0-rc.2",
+  "testedModel": "DeepSeek-V41-Flash / Low",
+  "publicationChecksOnly": true,
+  "runtimeFilesUnchanged": [
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/bridge-client.mjs",
+      "sha256": "41ebf4d5c90fd2719a5255ee40e3e0067d0e27794ba927bdc6eebbf81ac80954",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/contract.mjs",
+      "sha256": "bb6aa07ba7e0065059ac1347e6a21c3690cba5fe54f997893c00c5b1622a5a59",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/control.test.mjs",
+      "sha256": "0a850cffb5884376f385c5af54ec787d441d09425ec21adc73b9e7443f825f86",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/live-test.mjs",
+      "sha256": "fceb9e91b92675c19413cf8420655152744991276316109a1ae723019a9ff86b",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/mcp-server.mjs",
+      "sha256": "08fdd1db2291310ef1640dd23658751e0c7d2049ec326de4f56e5074f7cd5514",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/retry-test.mjs",
+      "sha256": "4eaab0db9322542a078bd6b33dbd770faf378aed05fd28a17239d969b5067280",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/smoke-test.mjs",
+      "sha256": "b2265b02c912185c5e565391cf7ebce024c156a5788489537eade6621fbe06ea",
+      "unchanged": true
+    },
+    {
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/skills/start-dsh-chat/SKILL.md",
+      "sha256": "7dd7c2ce589b7efe0d471dd7407ba5589462f9b121348854a7f9aff087f17c1f",
+      "unchanged": true
+    }
+  ],
+  "latestInstallersOnly": true
+}
