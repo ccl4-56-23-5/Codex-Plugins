@@ -18,3 +18,5 @@
 运行数据位于用户DSH目录：`top-directive/config.json`、备份、临时恢复记录、桥描述与本插件管理的run索引。桥描述中的随机令牌随宿主启动重新生成。HTTP与会话接口仅开放本插件所需能力；会话接口必须通过令牌验证并选择宿主已注册的工作区。桥不提供任意文件读取或shell接口。
 
 测试会话在宿主装配阶段将工具列表置空，并记录实际正文SHA-256、字节数、首个段、回复与turn结束状态。客户端使用`uiWorkspace.openSession`确认桌面选中。Codex只把符合这些证据且正文恢复成功的结果标记为通过。
+
+表中的DSH组件由[DSH-Plugins最高指令插件](https://github.com/ccl4-56-23-5/DSH-Plugins/tree/main/最高指令插件/1.1.1)提供。此仓库保存Codex侧MCP客户端、工具与交接技能。

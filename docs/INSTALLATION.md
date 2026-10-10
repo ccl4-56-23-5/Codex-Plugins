@@ -5,23 +5,13 @@
 - 已安装DSH桌面并初始化`desktop`profile。本次真实验收使用DSH0.2.0-rc.2；其他宿主版本需重新确认接口兼容性。
 - DSH默认位置为`D:\DeepSeekHarness`；用户配置位于`%USERPROFILE%\.dsh`。安装器允许用`-DshRoot`指定其他安装目录。
 - Codex控制插件安装器依赖可在命令行找到的`codex`，以及已有的`personal`marketplace中唯一的`codex-dsh-desktop`条目。此安装器用于该条目的本机更新；首次安装到没有此条目的电脑需要先完成Codex插件市场注册。
-- DSH插件无需额外npm运行依赖。Codex ZIP内包含SDK和Zod及其运行依赖，更新时无需下载npm包。GitHub源码不包含`node_modules`；运行源码前需按锁文件安装依赖。
+-Codex ZIP内包含SDK和Zod及其运行依赖，更新时无需下载npm包。GitHub源码不包含`node_modules`；运行源码前需按锁文件安装依赖。
 
-## 1. 安装DSH提示词插件
+## 安装DSH侧配套插件
 
-从本版Release下载`dsh-top-directive-1.1.1.tgz`与`Install-DSH.ps1`，放在同一目录，先核对`SHA256SUMS.txt`。
+先按[最高指令安装指南](https://github.com/ccl4-56-23-5/DSH-Plugins/blob/main/最高指令插件/1.1.1/docs/INSTALLATION.md)安装DSH1.1.1。DSH侧TGZ与安装器从DSH-Plugins下载。
 
-可以通过DSH插件管理导入TGZ。使用附带安装器时，先结束正在运行的DSH任务并退出桌面，再在该目录运行：
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-DSH.ps1
-# 自定义DSH路径：
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-DSH.ps1 -DshRoot 'E:\DeepSeekHarness'
-```
-
-安装器备份profile清单、锁文件和已有提示词，更新本地包依赖，移除旧`dsh-initial-prompt`条目并保留一份`dsh-top-directive`。已有`top-directive/config.json`继续使用。完成后重新打开DSH，在插件页编辑正文和开关。
-
-## 2. 更新Codex控制插件
+## 安装或更新Codex-DSH插件
 
 下载并解压`codex-dsh-desktop-0.2.0.zip`，进入`codex-dsh-desktop`目录，运行：
 
@@ -55,11 +45,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-Codex.ps1
 ## 校验安装包
 
 ```powershell
-Get-FileHash -Algorithm SHA256 .\dsh-top-directive-1.1.1.tgz
 Get-FileHash -Algorithm SHA256 .\codex-dsh-desktop-0.2.0.zip
 ```
 
-将结果与同版Release的`SHA256SUMS.txt`比较。校验文件一致只确认下载完整；运行验收需要实际模型回复与桌面状态。
+将结果与Codex-Plugins同版Release的`SHA256SUMS.txt`比较。校验文件一致只确认下载完整；运行验收需要实际模型回复与桌面状态。
 
 ## 恢复与卸载
 

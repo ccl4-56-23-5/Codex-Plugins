@@ -1,35 +1,19 @@
 # 开发与发布
 
-GitHub按`DSH插件/Top-Directive/1.1.1`与`Codex插件/Codex-Dsh-Desktop/0.2.0+codex.20261003`保存当前源码，顶层`docs`保存组合安装与使用说明。每个版本的清单保持实际包名；目录工程名用于归档。
+源码位于`Codex-DSH插件/0.2.0+codex.20261003/`；DSH配套源码位于[DSH-Plugins](https://github.com/ccl4-56-23-5/DSH-Plugins)。
 
-需要Node.js20或以上。DSH提示词插件没有额外npm运行依赖。Codex控制插件使用pnpm锁文件声明SDK1.20.2和Zod3.25.76；使用`pnpm install --frozen-lockfile --ignore-scripts --config.node-linker=hoisted`安装源码依赖。
+需要Node.js20或以上。依赖使用pnpm锁文件声明SDK1.20.2和Zod3.25.76；源码安装命令：`pnpm install --frozen-lockfile --ignore-scripts --config.node-linker=hoisted`。安装ZIP已包含实际运行依赖。
 
-## 需要验证实现时
+## 按需验证
 
-下面的命令供开发者按需执行。本轮上传归档未执行这些软件测试。
+单元测试入口为`node --test scripts/control.test.mjs`；MCP工具发现入口为`node scripts/smoke-test.mjs`。真实模型验证入口为scripts/live-test.mjs与scripts/retry-test.mjs，会临时替换提示词；仅在用户授权时运行。使用稳定runId，超时后读取原ID，确认实际回复、桌面选中和提示词恢复结果。
 
-```powershell
-# 分别在对应组件目录运行：
-node --test test/host.test.mjs
-node --test scripts/control.test.mjs
-node scripts/smoke-test.mjs
-# 真实模型调用，会临时替换提示词；仅在用户授权验证时运行：
-node scripts/live-test.mjs on 'D:\path\to\verification-records'
-node scripts/retry-test.mjs 'D:\path\to\verification-records'
-```
+本轮仓库整理仅核对文件、安装包、下载入口和哈希，未运行上述软件测试。已有运行证据见[验证记录](VALIDATION.md)。
 
-真实模型测试会连接已打开的DSH宿主。使用新的逻辑测试时应更新runId；恢复同一次交接时重用原ID。不要用辅助脚本的历史ID把新的测试冒充为新的完成结果。
+## 安装包与归档
 
-## 打包规则
+ZIP根目录为codex-dsh-desktop，包含插件清单、安装前MCP模板、脚本、技能、Install-Codex.ps1与实际node_modules依赖。保留嵌套依赖及各包许可，排除Git目录、pnpm虚拟存储、.bin和测试缓存。安装器生成目标电脑的绝对路径并更新唯一personal条目。
 
-- DSH标准TGZ由该组件的`package.json.files`决定：lib、patch、README和LICENSE。
-- Codex安装ZIP的根目录为`codex-dsh-desktop`，包含插件清单、MCP安装前模板、脚本、技能、安装器与实际运行依赖。保留嵌套依赖，不把pnpm虚拟存储、`.bin`、测试临时文件或Git目录打入包。
-- 安装器会将MCP模板改为目标电脑的Node、脚本和DSH可执行文件路径，随后注册插件。
-- Release只保留当前配套的DSH1.1.1与Codex0.2.0安装文件，附安装器、发行manifest与SHA-256清单。源码使用GitHub自动生成的标签归档，无需上传多份独立源码ZIP。
-- 更新后重新计算安装包哈希，逐项核对解包内容、运行依赖和发布文件版本。功能通过情况应来自真实验收，不能由压缩包校验替代。
+Release只提供最新版Codex安装ZIP和对应SHA256SUMS.txt、release-manifest.json。更新后替换本项目版本目录，更新文档和下载链接，Git提交历史用于追溯。
 
-## 本机归档
-
-工程名沿用`CodexDshDesktopPlugin`。含源码与依赖的ZIP/TGZ放在`sources/<工程>/<版本>/`；`outputs/<工程>/<版本>/`仅保留平铺文本记录。基线始终保留；普通历史源码按工作区规则保留；旧交付安装包按本次“仅最新版”要求移入Windows回收站。
-
-原始合并前实现保存在本机版本目录的`comparison`，属于对照源码。该目录中的历史README和安装脚本用于追溯，不作为当前安装入口。
+本机本次整理归档于sources/Codex-Plugins/2026.10.10，outputs/Codex-Plugins/2026.10.10保留平铺文本记录。2026-10-03原合并来源与对照工程保存在原CodexDshDesktopPlugin版本归档。
