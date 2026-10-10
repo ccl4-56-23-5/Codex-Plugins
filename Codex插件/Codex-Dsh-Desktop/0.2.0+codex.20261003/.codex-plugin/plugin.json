@@ -1,0 +1,22 @@
+{
+  "name": "codex-dsh-desktop",
+  "version": "0.2.0+codex.20261003",
+  "description": "Control DSH Desktop through scoped chat, answer-only verification and explicitly delegated tasks; read actual completion evidence and deduplicate retries.",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DeepSeek Harness Desktop",
+    "shortDescription": "Send scoped DSH tasks and read their actual results.",
+    "longDescription": "Uses the installed DSH prompt plugin's local session bridge. Separates explicit chat, verification and delegated work; removes tools during verification, restores prompts and reads actual replies without duplicate handoffs.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "composerIcon": "./assets/deepseek-harness-whale.png",
+    "logo": "./assets/deepseek-harness-whale.png",
+    "logoDark": "./assets/deepseek-harness-whale.png",
+    "capabilities": [],
+    "defaultPrompt": "检查DSH桌面的连接和插件版本，明确区分聊天、验证和委派任务。"
+  },
+  "mcpServers": "./.mcp.json"
+}
