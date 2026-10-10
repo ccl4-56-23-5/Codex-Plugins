@@ -1,33 +1,16 @@
 {
-  "project": "CodexDshDesktopPlugin",
-  "publishedSourceAt": "2026-10-10",
-  "packagingRevision": "20261010",
-  "dsh": {
-    "version": "1.1.1",
-    "name": "dsh-top-directive"
-  },
-  "codex": {
-    "version": "0.2.0+codex.20261003",
-    "npmVersion": "0.2.0",
-    "name": "codex-dsh-desktop"
-  },
-  "repository": "https://github.com/ccl4-56-23-5/CodexDshDesktopPlugin",
-  "releaseTag": "top-directive-v1.1.1",
+  "schemaVersion": 1,
+  "project": "codex-dsh-desktop",
+  "version": "0.2.0+codex.20261003",
+  "packagingRevision": "20261010-repository-organization",
+  "repository": "https://github.com/ccl4-56-23-5/Codex-Plugins",
+  "sourcePath": "Codex-DSH插件/0.2.0+codex.20261003",
+  "releaseTag": "codex-dsh-v0.2.0",
   "assets": [
-    {
-      "file": "dsh-top-directive-1.1.1.tgz",
-      "bytes": 13557,
-      "sha256": "9d4037905b79aba2c97a208bdddc0e0b7c9d805b79994f4d66bfa69893bce811"
-    },
     {
       "file": "codex-dsh-desktop-0.2.0.zip",
       "bytes": 3437847,
       "sha256": "f7ba1030cc533b229969bde5285ada96a709d6e209de6166aed58c6808176b34"
-    },
-    {
-      "file": "Install-DSH.ps1",
-      "bytes": 3396,
-      "sha256": "d1522b47298c22c444eeb951b0c2269f0885d4866c25c77c743a2e77b04ecb15"
     }
   ],
   "testedAt": "2026-10-03",
@@ -36,62 +19,45 @@
   "publicationChecksOnly": true,
   "runtimeFilesUnchanged": [
     {
-      "file": "dsh-top-directive/lib/index.js",
-      "sha256": "62DD1C76288314D2ADEADA17358484FCD2E8354052625D470F03EE22DD387B18",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/bridge-client.mjs",
+      "sha256": "41ebf4d5c90fd2719a5255ee40e3e0067d0e27794ba927bdc6eebbf81ac80954",
+      "unchanged": true
     },
     {
-      "file": "dsh-top-directive/lib/state.js",
-      "sha256": "033CF6EB57B0185E22F10635E20E5D575EE24C60BBC3CA91CA2C2D5BE20C2CF2",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/contract.mjs",
+      "sha256": "bb6aa07ba7e0065059ac1347e6a21c3690cba5fe54f997893c00c5b1622a5a59",
+      "unchanged": true
     },
     {
-      "file": "dsh-top-directive/lib/bridge.js",
-      "sha256": "B573F0938B4002D8730B06E72D8C6A93F00FA8548D17044DBBC1E434F69917D6",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/control.test.mjs",
+      "sha256": "0a850cffb5884376f385c5af54ec787d441d09425ec21adc73b9e7443f825f86",
+      "unchanged": true
     },
     {
-      "file": "dsh-top-directive/lib/http.js",
-      "sha256": "19E5E72E2B655BAA2F285791C16E1586418DEC4124674C7360D8BD83A624D8C1",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/live-test.mjs",
+      "sha256": "fceb9e91b92675c19413cf8420655152744991276316109a1ae723019a9ff86b",
+      "unchanged": true
     },
     {
-      "file": "dsh-top-directive/lib/contract.js",
-      "sha256": "BB6AA07BA7E0065059AC1347E6A21C3690CBA5FE54F997893C00C5B1622A5A59",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/mcp-server.mjs",
+      "sha256": "08fdd1db2291310ef1640dd23658751e0c7d2049ec326de4f56e5074f7cd5514",
+      "unchanged": true
     },
     {
-      "file": "dsh-top-directive/lib/client.js",
-      "sha256": "A9A8B78CB69E2FB9A0A4AD6A19D7F01FA10804C3B67F0985FD3305C4AF262B28",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/retry-test.mjs",
+      "sha256": "4eaab0db9322542a078bd6b33dbd770faf378aed05fd28a17239d969b5067280",
+      "unchanged": true
     },
     {
-      "file": "codex-dsh-desktop/scripts/bridge-client.mjs",
-      "sha256": "41EBF4D5C90FD2719A5255EE40E3E0067D0E27794BA927BDC6EEBBF81AC80954",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/scripts/smoke-test.mjs",
+      "sha256": "b2265b02c912185c5e565391cf7ebce024c156a5788489537eade6621fbe06ea",
+      "unchanged": true
     },
     {
-      "file": "codex-dsh-desktop/scripts/contract.mjs",
-      "sha256": "BB6AA07BA7E0065059AC1347E6A21C3690CBA5FE54F997893C00C5B1622A5A59",
-      "unchangedFromTestedSource": true
-    },
-    {
-      "file": "codex-dsh-desktop/scripts/mcp-server.mjs",
-      "sha256": "08FDD1DB2291310EF1640DD23658751E0C7D2049EC326DE4F56E5074F7CD5514",
-      "unchangedFromTestedSource": true
-    },
-    {
-      "file": "codex-dsh-desktop/skills/start-dsh-chat/SKILL.md",
-      "sha256": "7DD7C2CE589B7EFE0D471DD7407BA5589462F9B121348854A7F9AFF087F17C1F",
-      "unchangedFromTestedSource": true
+      "path": "Codex-DSH插件/0.2.0+codex.20261003/skills/start-dsh-chat/SKILL.md",
+      "sha256": "7dd7c2ce589b7efe0d471dd7407ba5589462f9b121348854a7f9aff087f17c1f",
+      "unchanged": true
     }
   ],
-  "changesSinceTesting": [
-    "Documentation and screenshot",
-    "Developer helper output paths",
-    "Installer UTF-8 BOM",
-    "Installation-generated MCP template"
-  ],
-  "codexInstallRequires": "Existing personal marketplace with one codex-dsh-desktop entry; first-time setup documented",
   "latestInstallersOnly": true
 }

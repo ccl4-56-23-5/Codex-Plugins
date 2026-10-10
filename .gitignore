@@ -13,3 +13,7 @@ test-results/
 codex-bridge.json
 codex-runs.json
 codex-prompt-test.json
+
+# Current published installation package
+!Codex-DSH插件/0.2.0+codex.20261003/dist/
+!Codex-DSH插件/0.2.0+codex.20261003/dist/*.zip
