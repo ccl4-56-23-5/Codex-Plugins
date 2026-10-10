@@ -1,0 +1,15 @@
+node_modules/
+.pnpm/
+.test-tmp/
+.work/
+dist/
+test-results/
+*.tgz
+*.zip
+*.log
+.env
+.env.*
+.dsh/
+codex-bridge.json
+codex-runs.json
+codex-prompt-test.json
