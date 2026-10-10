@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dsh-desktop": {
+      "command": "node",
+      "args": [
+        "./scripts/mcp-server.mjs"
+      ]
+    }
+  }
+}
