@@ -1,5 +1,13 @@
 param([string]$DshRoot='D:\DeepSeekHarness')
 $ErrorActionPreference='Stop'
+$sums=Join-Path $PSScriptRoot 'RUNTIME-SHA256SUMS.txt'
+foreach($line in Get-Content -LiteralPath $sums){
+  if($line -notmatch '^([a-f0-9]{64})  (.+)$'){throw 'Invalid runtime hash manifest'}
+  $expected=$Matches[1];$relative=$Matches[2]
+  $file=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot $relative))
+  if(!$file.StartsWith([IO.Path]::GetFullPath($PSScriptRoot)+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){throw 'Unsafe package path'}
+  if((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected){throw "Runtime SHA-256 mismatch: $relative"}
+}
 $target=Join-Path $env:USERPROFILE 'plugins\codex-dsh-control-1.0.0'
 $marketFile=Join-Path $env:USERPROFILE '.agents\plugins\marketplace.json'
 $node=Join-Path $DshRoot 'resources\runtime\primary-runtime\dependencies\node\bin\node.exe'
