@@ -17,3 +17,6 @@ codex-prompt-test.json
 # Current published installation package
 !Codex-DSH插件/0.2.0+codex.20261003/dist/
 !Codex-DSH插件/0.2.0+codex.20261003/dist/*.zip
+
+!DSH-Control插件/1.0.0/dist/
+!DSH-Control插件/1.0.0/dist/*

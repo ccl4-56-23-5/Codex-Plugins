@@ -1,0 +1,12 @@
+{
+  "name": "codex-dsh-control",
+  "version": "1.0.0",
+  "tools": 41,
+  "bundledDependencies": true,
+  "files": {
+    "codex-dsh-control-1.0.0-Windows.zip": {
+      "bytes": 508250,
+      "sha256": "1b9256c334972ce3e2c27aa7ad749228e7ee73ef5cb330270a4e357cb44cecf7"
+    }
+  }
+}

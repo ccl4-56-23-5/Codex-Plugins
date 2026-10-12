@@ -1,0 +1,1 @@
+{"name":"codex-dsh-control","version":"1.0.0","private":true,"type":"module","license":"MIT","scripts":{"build":"esbuild scripts/server.mjs --bundle --platform=node --format=esm --target=node22 --outfile=dist/server.mjs","test":"node --test test/*.test.mjs"},"dependencies":{"@modelcontextprotocol/sdk":"1.26.0","zod":"3.25.76"},"devDependencies":{"esbuild":"0.25.12"}}

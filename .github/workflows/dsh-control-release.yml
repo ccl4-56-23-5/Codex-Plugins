@@ -1,0 +1,47 @@
+name: DSH Control checks and release
+on:
+  push:
+    branches: [main]
+    paths: ['DSH-Control插件/**', '.github/workflows/dsh-control-release.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: node 'DSH-Control插件/1.0.0/scripts/check-package.mjs'
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const fs=require('fs'),cp=require('child_process'),crypto=require('crypto');
+            const dir='DSH-Control插件/1.0.0',tag='codex-dsh-control-v1.0.0',scope=context.repo;
+            const head=await github.rest.repos.getBranch({...scope,branch:'main'});
+            if(head.data.commit.sha!==context.sha)throw new Error('Obsolete commit');
+            const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+            fs.mkdirSync('.work',{recursive:true});
+            const source='codex-dsh-control-1.0.0-Source.zip';
+            cp.execFileSync('git',['archive','--format=zip','--prefix=codex-dsh-control-1.0.0/','--output=.work/'+source,context.sha+':'+dir]);
+            const assets=[{name:'codex-dsh-control-1.0.0-Windows.zip',data:fs.readFileSync(dir+'/dist/codex-dsh-control-1.0.0-Windows.zip')},{name:source,data:fs.readFileSync('.work/'+source)},{name:'release-manifest.json',data:fs.readFileSync(dir+'/release-manifest.json')}];
+            assets.push({name:'SHA256SUMS.txt',data:Buffer.from(assets.map(a=>hash(a.data)+'  '+a.name).join('\n')+'\n')});
+            let release;try{release=(await github.rest.repos.getReleaseByTag({...scope,tag})).data}catch(e){if(e.status!==404)throw e;release=(await github.rest.repos.createRelease({...scope,tag_name:tag,target_commitish:context.sha,name:'DSH Control Bridge 1.0.0',draft:true,body:'Codex端41个结构化控制工具，配合DSH Control Bridge 1.0.0使用。安装ZIP包含打包后的MCP依赖。DSH端：https://github.com/ccl4-56-23-5/DSH-Plugins/releases/tag/dsh-control-v1.0.0'})).data}
+            for(const a of assets){const old=release.assets.find(x=>x.name===a.name);if(old?.digest==='sha256:'+hash(a.data))continue;if(old)await github.rest.repos.deleteReleaseAsset({...scope,asset_id:old.id});const uploaded=(await github.rest.repos.uploadReleaseAsset({...scope,release_id:release.id,name:a.name,data:a.data})).data;if(uploaded.digest!=='sha256:'+hash(a.data))throw new Error('Upload hash mismatch');}
+            release=(await github.rest.repos.updateRelease({...scope,release_id:release.id,draft:false,make_latest:'true'})).data;
+            for(const a of assets){const remote=release.assets.find(x=>x.name===a.name);const response=await fetch(remote.browser_download_url);if(!response.ok)throw new Error('Download failed');if(hash(Buffer.from(await response.arrayBuffer()))!==hash(a.data))throw new Error('Download hash mismatch');}
+            core.info('All Codex control release assets downloaded and SHA-256 verified');

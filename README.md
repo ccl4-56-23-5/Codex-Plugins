@@ -5,6 +5,7 @@ Codex桌面插件集合。每个项目只保留当前最新版的源码和安装
 | 插件 | 当前版本 | 功能 | 下载与安装 |
 |---|---|---|---|
 | [Codex-DSH插件](Codex-DSH插件/README.md) | 0.2.0+codex.20261003 | 打开DSH会话、验证现有插件、读取真实回复、按授权委派任务 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-v0.2.0) · [安装指南](docs/INSTALLATION.md) |
+| [DSH Control Bridge](DSH-Control插件/README.md) | 1.0.0 | 41个MCP工具：原生API、动态接口、终端流和DOM控件树 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.0) · [安装说明](DSH-Control插件/1.0.0/README.md) |
 
 ## 目录
 
