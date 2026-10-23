@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/ccl4-56-23-5/Codex-Plugins",
+  "installer": {
+    "sha256": "13d274505e8376cb74b45bc15006e04cf1d33536ea59e8f841c6619b65db3f4c",
+    "file": "CodexPrivacyCurtain-Setup-1.0.3-x64.exe",
+    "bytes": 4694987
+  },
+  "sourcePath": "你看你马/1.0.3",
+  "project": "codex-privacy-curtain",
+  "privateRuntimeDataIncluded": false,
+  "publicationKeepsTestedInstaller": true,
+  "version": "1.0.3",
+  "displayName": "你看你马",
+  "userTestConfirmation": "User confirmed version 1.0.3 tested before publication on 2026-10-23",
+  "schemaVersion": 1,
+  "releaseTag": "codex-privacy-curtain-v1.0.3"
+}

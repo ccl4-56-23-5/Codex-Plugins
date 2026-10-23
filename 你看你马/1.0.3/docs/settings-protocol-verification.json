@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Installed MCP version",
+    "passed": true
+  },
+  {
+    "name": "Native settings capability advertised",
+    "passed": true
+  },
+  {
+    "name": "Read-only settings tool has outputSchema",
+    "passed": true
+  },
+  {
+    "name": "Button has Chinese display title and accepts no arguments",
+    "passed": true
+  },
+  {
+    "name": "Settings read returns structured content",
+    "passed": true
+  },
+  {
+    "name": "Settings layout references password action",
+    "passed": true
+  },
+  {
+    "name": "Password updates through generic settings rejected",
+    "passed": true
+  },
+  {
+    "name": "Empty settings update is harmless",
+    "passed": true
+  },
+  {
+    "name": "Existing password file preserved",
+    "passed": true
+  }
+]
