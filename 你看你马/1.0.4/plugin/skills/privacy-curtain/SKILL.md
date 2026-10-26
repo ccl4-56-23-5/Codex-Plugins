@@ -9,3 +9,5 @@ description: 在 Windows 开启或查询 Codex 隐私幕布、使用用户提供
 幕布不调用 LockWorkStation，不改变 Windows 安全/隐私设置，不暂停任务。截图排除依赖 Windows 10 2004+ 的 WDA_EXCLUDEFROMCAPTURE，放行带 Windows 注入标记的输入，不限于 Codex。浏览器/DOM 自动化可继续。不同截图或输入驱动必须实测；状态中的 injectedKeyboardEvents/injectedMouseEvents 只证明已观察到注入，不证明所有动作成功。
 应用层幕布可被 Ctrl+Alt+Del、任务管理器、管理员或同用户进程绕过，不能当安全隔离。不要把 Agent 能通过本地代码访问电脑误称为密码安全边界。
 插件启用、MCP 进程启动和读取状态均不自动开幕布。卸载前先由用户解锁；后台 guard 生命周期独立，关闭聊天不会自动解锁。
+
+手动入口：Ctrl+Shift+Alt+N（全局）、单击马头托盘图标、桌面开启快捷方式，或 Codex 插件设置 → 手动开启 → 开启隐私幕布。快捷键只开启不解锁；托盘入口退出不关闭幕布。安装后可选登录自启动入口，本身不自动开幕布。

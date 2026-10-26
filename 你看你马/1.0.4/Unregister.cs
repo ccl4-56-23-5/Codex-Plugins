@@ -6,6 +6,10 @@ using System.Web.Script.Serialization;
 class Unregister {
     static int Main(){try{
         string root=Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,".."));
+        using(var run=Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run",true)){
+            string expected="\""+Path.Combine(root,"bin","PrivacyCurtain.exe")+"\" --resident";
+            if(run!=null&&String.Equals(Convert.ToString(run.GetValue("CodexPrivacyCurtain")),expected,StringComparison.OrdinalIgnoreCase))run.DeleteValue("CodexPrivacyCurtain",false);
+        }
         string file=Path.Combine(Environment.GetEnvironmentVariable("CPC_MARKETPLACE_DIR")??Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),".agents","plugins"),"marketplace.json");
         if(!File.Exists(file))return 0;
         var j=new JavaScriptSerializer();string before=File.ReadAllText(file);var d=j.Deserialize<Dictionary<string,object>>(before);var list=new List<object>();

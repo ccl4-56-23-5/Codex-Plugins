@@ -149,7 +149,7 @@ class Guard : ApplicationContext {
     object Status() {
         var windows=forms.Select(f=>{var b=Native.Bounds(f.Handle);uint affinity;bool a=Native.GetWindowDisplayAffinity(f.Handle,out affinity);long style=Native.GetWindowLongPtr(f.Handle,-20).ToInt64();return new{handle=f.Handle.ToInt64(),x=b.X,y=b.Y,width=b.Width,height=b.Height,visible=Native.IsWindowVisible(f.Handle),topmost=(style&8)!=0,clickThrough=(style&0x20)!=0,noActivate=(style&0x8000000)!=0,captureExcluded=a&&affinity==0x11};}).ToArray();
         var screens=Screen.AllScreens;bool covered=locked&&screens.Length==windows.Length&&screens.All(s=>windows.Any(w=>w.visible&&w.topmost&&w.x==s.Bounds.X&&w.y==s.Bounds.Y&&w.width==s.Bounds.Width&&w.height==s.Bounds.Height));
-        return new {version="1.0.3",locked=locked,monitors=forms.Count,allCurtainsVisible=locked&&windows.All(w=>w.visible),coverageVerified=covered,monitorBounds=windows,wallpaperSha256=Curtain.WallpaperHash,captureAffinity=locked&&windows.All(w=>w.captureExcluded)?"WDA_EXCLUDEFROMCAPTURE":"none",physicalInputBlocked=locked,injectedInputAllowed=true,physicalKeyboardEvents=Interlocked.Read(ref physicalKeys),physicalMouseEvents=Interlocked.Read(ref physicalMouse),injectedKeyboardEvents=Interlocked.Read(ref injectedKeys),injectedMouseEvents=Interlocked.Read(ref injectedMouse),testAutoRelease=until!=DateTime.MaxValue,lastError=lastError};
+        return new {version="1.0.4",locked=locked,monitors=forms.Count,allCurtainsVisible=locked&&windows.All(w=>w.visible),coverageVerified=covered,monitorBounds=windows,wallpaperSha256=Curtain.WallpaperHash,captureAffinity=locked&&windows.All(w=>w.captureExcluded)?"WDA_EXCLUDEFROMCAPTURE":"none",physicalInputBlocked=locked,injectedInputAllowed=true,physicalKeyboardEvents=Interlocked.Read(ref physicalKeys),physicalMouseEvents=Interlocked.Read(ref physicalMouse),injectedKeyboardEvents=Interlocked.Read(ref injectedKeys),injectedMouseEvents=Interlocked.Read(ref injectedMouse),testAutoRelease=until!=DateTime.MaxValue,lastError=lastError};
     }
     void PipeLoop() {
         var acl=new PipeSecurity();acl.SetAccessRuleProtection(true,false);acl.AddAccessRule(new PipeAccessRule(WindowsIdentity.GetCurrent().User,PipeAccessRights.FullControl,AccessControlType.Allow));
@@ -168,8 +168,8 @@ class Guard : ApplicationContext {
     protected override void ExitThreadCore(){stopping=true;Cleanup();base.ExitThreadCore();}
 }
 static class Client {
-    public static Dictionary<string,object> Request(object q,int wait=800) { using(var pipe=new NamedPipeClientStream(".",Store.Pipe,PipeDirection.InOut,PipeOptions.Asynchronous)) { pipe.Connect(wait);using(var r=new StreamReader(pipe,Encoding.UTF8,false,4096,true))using(var w=new StreamWriter(pipe,new UTF8Encoding(false),4096,true){AutoFlush=true}){w.WriteLine(Json.Write(q));var t=r.ReadLineAsync();if(!t.Wait(12000))throw new TimeoutException("幕布未响应");return Json.Read(t.Result);} } }
-    static object Missing(){try{using(var m=Mutex.OpenExisting("Local\\"+Store.Pipe+"-guard"))throw new InvalidOperationException("幕布进程仍在运行，但状态通道不可用；不能确认已解锁。");}catch(WaitHandleCannotBeOpenedException){return new{version="1.0.3",locked=false,running=false};}}
+    public static Dictionary<string,object> Request(object q,int wait=800,string pipeName=null) { using(var pipe=new NamedPipeClientStream(".",pipeName??Store.Pipe,PipeDirection.InOut,PipeOptions.Asynchronous)) { pipe.Connect(wait);using(var r=new StreamReader(pipe,Encoding.UTF8,false,4096,true))using(var w=new StreamWriter(pipe,new UTF8Encoding(false),4096,true){AutoFlush=true}){w.WriteLine(Json.Write(q));var t=r.ReadLineAsync();if(!t.Wait(12000))throw new TimeoutException("幕布未响应");return Json.Read(t.Result);} } }
+    static object Missing(){try{using(var m=Mutex.OpenExisting("Local\\"+Store.Pipe+"-guard"))throw new InvalidOperationException("幕布进程仍在运行，但状态通道不可用；不能确认已解锁。");}catch(WaitHandleCannotBeOpenedException){return new{version="1.0.4",locked=false,running=false};}}
     public static object Status(){try{return Request(new{command="status"});}catch(TimeoutException){return Missing();}catch(IOException){return Missing();}}
     public static object Lock(int seconds=0){
         using(var m=new Mutex(false,"Local\\"+Store.Pipe+"-launch")){if(!m.WaitOne(10000))throw new TimeoutException("启动正在进行");try{
@@ -184,9 +184,13 @@ static class Client {
 static class Program {
     [STAThread] static int Main(string[] args){
         string mode=args.Length>0?args[0]:"--lock";
-        if(mode!="--serve"&&mode!="--status"&&mode!="--unlock"&&mode!="--self-test") { var h=Native.GetConsoleWindow();if(h!=IntPtr.Zero)Native.ShowWindow(h,0); }
+        if(mode!="--serve"&&mode!="--status"&&mode!="--resident-status"&&mode!="--unlock"&&mode!="--self-test") { var h=Native.GetConsoleWindow();if(h!=IntPtr.Zero)Native.ShowWindow(h,0); }
         try{
             Native.SetProcessDpiAwarenessContext(new IntPtr(-4));
+            if(mode=="--resident"||mode=="--resident-replace"){LauncherClient.Run(mode=="--resident-replace",0);return 0;}
+            if(mode=="--resident-test"){if(String.IsNullOrEmpty(Environment.GetEnvironmentVariable("CPC_DATA_DIR")))throw new ArgumentException("测试须指定隔离数据目录");LauncherClient.Run(false,30);return 0;}
+            if(mode=="--resident-status"){Console.WriteLine(Json.Write(LauncherClient.Status()));return 0;}
+            if(mode=="--resident-stop"){LauncherClient.Stop(true);return 0;}
             if(mode=="--settings-preview"){Application.EnableVisualStyles();if(args.Length!=4)throw new ArgumentException("Preview needs path, light/dark, dpi");PasswordSettingsForm.Preview(args[1],args[2]=="dark",int.Parse(args[3]));return 0;}
             if(mode=="--settings-ui-test"){Application.EnableVisualStyles();if(args.Length!=2)throw new ArgumentException("UI test output directory required");PasswordSettingsForm.VerifyUi(args[1]);return 0;}
             if(mode=="--preview"){Application.EnableVisualStyles();if(args.Length!=2)throw new ArgumentException("Preview output path required");using(var f=new Curtain(new Rectangle(0,0,1920,1080)))using(var b=new Bitmap(1920,1080)){f.DrawToBitmap(b,new Rectangle(0,0,1920,1080));b.Save(args[1],System.Drawing.Imaging.ImageFormat.Png);}return 0;}
@@ -199,7 +203,7 @@ static class Program {
             if(mode=="--smoke"){Console.WriteLine(Json.Write(Client.Lock(20)));return 0;}
             if(mode!="--lock")throw new ArgumentException("Unknown command");
             var result=Client.Lock();var d=result as Dictionary<string,object>;if(d!=null&&!(bool)d["locked"])throw new InvalidOperationException(Json.Str(d,"lastError"));return 0;
-        }catch(Exception ex){if(mode=="--serve"||mode=="--status"||mode=="--unlock"||mode=="--self-test")Console.Error.WriteLine(ex.Message);else MessageBox.Show(ex.Message,"你看你马",MessageBoxButtons.OK,MessageBoxIcon.Error);return 1;}
+        }catch(Exception ex){if(mode=="--serve"||mode=="--status"||mode=="--resident-status"||mode=="--unlock"||mode=="--self-test")Console.Error.WriteLine(ex.Message);else MessageBox.Show(ex.Message,"你看你马",MessageBoxButtons.OK,MessageBoxIcon.Error);return 1;}
     }
     public static void Settings(){
         var s=Client.Status() as Dictionary<string,object>;if(s!=null&&s.ContainsKey("locked")&&(bool)s["locked"])throw new InvalidOperationException("请先输入密码解锁，再修改密码。");
@@ -209,9 +213,9 @@ static class Program {
     }
 }
 static class Mcp {
-    static object Tool(string name,string description,object props,string[] required,bool readOnly){return new{name=name,title=name=="curtain_open_settings"?"修改密码":name,description=description,inputSchema=new{type="object",properties=props,required=required,additionalProperties=false},annotations=new{readOnlyHint=readOnly,destructiveHint=false,idempotentHint=name!="curtain_open_settings",openWorldHint=false}};}
+    static object Tool(string name,string description,object props,string[] required,bool readOnly){return new{name=name,title=name=="curtain_open_settings"?"修改密码":name=="curtain_lock"?"开启隐私幕布":name,description=description,inputSchema=new{type="object",properties=props,required=required,additionalProperties=false},annotations=new{readOnlyHint=readOnly,destructiveHint=false,idempotentHint=name!="curtain_open_settings",openWorldHint=false}};}
     static object SettingsCapability(){return new Dictionary<string,object>{{"openai/settings",new{readTool="curtain_settings_read",updateTool="curtain_settings_update"}}};}
-    static object ReadSettings(){return new{schema=new{type="object",properties=new{}},values=new{},layout=new[]{new{kind="group",title="密码与解锁",items=new[]{new{kind="tool",tool="curtain_open_settings",description="打开本地改密窗口，输入当前密码及两次新密码。"}}}}};}
+    static object ReadSettings(){return new{schema=new{type="object",properties=new{}},values=new{},layout=new[]{new{kind="group",title="手动开启",items=new[]{new{kind="tool",tool="curtain_lock",description="立即开启全部屏幕幕布。也可按 Ctrl+Shift+Alt+N 或单击托盘图标。"}}},new{kind="group",title="密码与解锁",items=new[]{new{kind="tool",tool="curtain_open_settings",description="打开本地改密窗口，输入当前密码及两次新密码。"}}}}};}
     static object ReadSettingsTool(){return new{name="curtain_settings_read",title="读取幕布插件设置",description="读取插件详情页中的密码设置入口，不读取或修改密码。",inputSchema=new{type="object",properties=new{},additionalProperties=false},outputSchema=new{type="object",properties=new{schema=new{type="object"},values=new{type="object"},layout=new{type="array",items=new{type="object"}}},required=new[]{"schema","values"}},annotations=new{readOnlyHint=true,destructiveHint=false,idempotentHint=true,openWorldHint=false}};}
     static object UpdateSettingsTool(){return new{name="curtain_settings_update",title="更新幕布插件设置",description="本插件设置页仅提供本地改密按钮，不接收密码或普通字段。",inputSchema=new{type="object",properties=new{set=new{type="object",properties=new{},additionalProperties=false}},required=new[]{"set"},additionalProperties=false},outputSchema=new{type="object",properties=new{values=new{type="object"}},required=new[]{"values"}},annotations=new{readOnlyHint=false,destructiveHint=false,idempotentHint=true,openWorldHint=false}};}
     static object[] Tools(){return new[]{
@@ -221,7 +225,7 @@ static class Mcp {
         Tool("curtain_open_settings","打开修改密码窗口，需要用户在窗口中输入当前及新密码。",new{},new string[0],false),ReadSettingsTool(),UpdateSettingsTool()};}
     public static void Run(){Console.InputEncoding=new UTF8Encoding(false);Console.OutputEncoding=new UTF8Encoding(false);string line;while((line=Console.ReadLine())!=null){Dictionary<string,object> q=null;try{
         q=Json.Read(line);if(!q.ContainsKey("id"))continue;string method=Json.Str(q,"method");object result;
-        if(method=="initialize"){var p=q.ContainsKey("params")?q["params"] as Dictionary<string,object>:null;string requested=p==null?"":Json.Str(p,"protocolVersion");result=new{protocolVersion=new[]{"2024-11-05","2025-03-26","2025-06-18","2025-11-25"}.Contains(requested)?requested:"2025-06-18",capabilities=new{tools=new{listChanged=false},experimental=SettingsCapability(),extensions=SettingsCapability()},serverInfo=new{name="codex-privacy-curtain",version="1.0.3"}};}
+        if(method=="initialize"){var p=q.ContainsKey("params")?q["params"] as Dictionary<string,object>:null;string requested=p==null?"":Json.Str(p,"protocolVersion");result=new{protocolVersion=new[]{"2024-11-05","2025-03-26","2025-06-18","2025-11-25"}.Contains(requested)?requested:"2025-06-18",capabilities=new{tools=new{listChanged=false},experimental=SettingsCapability(),extensions=SettingsCapability()},serverInfo=new{name="codex-privacy-curtain",version="1.0.4"}};}
         else if(method=="ping")result=new{};
         else if(method=="tools/list")result=new{tools=Tools()};
         else if(method=="tools/call"){
