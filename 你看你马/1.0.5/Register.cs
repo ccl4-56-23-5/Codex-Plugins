@@ -26,6 +26,6 @@ class Register {
             string temp=file+".curtain-"+Guid.NewGuid().ToString("N")+".tmp";File.WriteAllText(temp,json.Serialize(doc),new UTF8Encoding(false));
             if(before!=null)File.Replace(temp,file,file+".before-curtain-"+DateTime.Now.ToString("yyyyMMddHHmmssfff")+".bak");else File.Move(temp,file);
         }finally{mutex.ReleaseMutex();}}
-        if(!args.Contains("--quiet"))MessageBox.Show("安装完成。\n\n在 Codex 插件目录的 Personal 来源找到“你看你马”，点击安装/启用。\n初始密码：123456\n\n开始菜单另有“开启隐私幕布”和“修改密码”。\n当前不会自动开启幕布，不需要重启 Windows。","你看你马");return 0;
+        if(!args.Contains("--quiet"))MessageBox.Show("安装完成。\n\n在 Codex 插件目录的 Personal 来源找到“你看你马”，点击安装/启用。\n初始密码：123456\n\n在 Codex 的插件页面开启幕布或修改密码。\n当前不会自动开启幕布，不需要重启 Windows。","你看你马");return 0;
     }catch(Exception ex){MessageBox.Show(ex.Message,"插件注册失败");return 1;}}
 }
