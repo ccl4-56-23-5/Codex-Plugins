@@ -1,6 +1,6 @@
 {
   "name": "codex-privacy-curtain",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "Windows 多屏隐私幕布，实体键鼠密码解锁，保留 Computer Use 注入输入和窗口截图能力。",
   "author": {"name": "ccl"},
   "requires_local_executor": true,
@@ -8,8 +8,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "你看你马",
-    "shortDescription": "近似锁屏，Codex 继续工作",
-    "longDescription": "覆盖全部显示器，拦截实体键鼠，数字密码解锁；支持 Computer Use 注入输入。初始密码 123456，可在本地窗口修改。应用层隐私遮罩，不替代 Windows 安全锁定。",
+    "shortDescription": "Codex 内快捷键一键开启",
+    "longDescription": "Codex 前台按 Ctrl+Shift+左Alt+N 一键开启。覆盖全部显示器，拦截实体键鼠，数字密码解锁；支持 Computer Use 注入输入。初始密码 123456，可在本地窗口修改。应用层隐私遮罩，不替代 Windows 安全锁定。",
     "developerName": "ccl",
     "category": "Productivity",
     "composerIcon": "./assets/icon.png",

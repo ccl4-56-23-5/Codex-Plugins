@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Installed 1.0.6 responds and curtain is not active",
+    "passed": true
+  },
+  {
+    "name": "Old desktop shortcut was removed from desktop",
+    "passed": true
+  },
+  {
+    "name": "No desktop shortcut existed before this update",
+    "passed": true
+  },
+  {
+    "name": "Old plugin-owned startup value removed",
+    "passed": true
+  },
+  {
+    "name": "Old start-menu links removed",
+    "passed": true
+  },
+  {
+    "name": "Old tray and global hotkey are stopped",
+    "passed": true
+  },
+  {
+    "name": "PrivacyCurtain.exe source, installed and cache binaries match",
+    "passed": true
+  },
+  {
+    "name": "Register.exe source, installed and cache binaries match",
+    "passed": true
+  },
+  {
+    "name": "Unregister.exe source, installed and cache binaries match",
+    "passed": true
+  },
+  {
+    "name": "Codex plugin cache contains 1.0.6",
+    "passed": true
+  },
+  {
+    "name": "Codex MCP points at updated installed binary",
+    "passed": true
+  },
+  {
+    "name": "Existing password unchanged",
+    "passed": true
+  },
+  {
+    "name": "Marketplace before-install backup preserved",
+    "passed": true
+  },
+  {
+    "name": "Other marketplace plugins unchanged",
+    "passed": true
+  }
+]

@@ -1,0 +1,287 @@
+{
+  "unitChecks": [
+    {
+      "name": "Null and foreign targets are not Codex",
+      "passed": true
+    },
+    {
+      "name": "Plain N passes",
+      "passed": true
+    },
+    {
+      "name": "Modifier down passes",
+      "passed": true
+    },
+    {
+      "name": "Outside app N passes",
+      "passed": true
+    },
+    {
+      "name": "Injected N passes",
+      "passed": true
+    },
+    {
+      "name": "Codex chord arms and consumes N",
+      "passed": true
+    },
+    {
+      "name": "N autorepeat consumed without re-trigger",
+      "passed": true
+    },
+    {
+      "name": "N up consumed",
+      "passed": true
+    },
+    {
+      "name": "Modifier up passes before last release",
+      "passed": true
+    },
+    {
+      "name": "Last modifier release passes and triggers",
+      "passed": true
+    },
+    {
+      "name": "Modifier release without arm passes",
+      "passed": true
+    },
+    {
+      "name": "Right Ctrl and Shift with left Alt supported",
+      "passed": true
+    },
+    {
+      "name": "Release modifiers while N held passes",
+      "passed": true
+    },
+    {
+      "name": "Last N release consumed and triggers",
+      "passed": true
+    },
+    {
+      "name": "Extended generic Alt is recognized as right Alt",
+      "passed": true
+    },
+    {
+      "name": "Nonextended generic Alt is recognized as left Alt",
+      "passed": true
+    },
+    {
+      "name": "Explicit right Alt remains right Alt",
+      "passed": true
+    },
+    {
+      "name": "Right Alt or AltGr chord passes unchanged",
+      "passed": true
+    },
+    {
+      "name": "Both Alt keys down prevent interception",
+      "passed": true
+    },
+    {
+      "name": "Right Alt down cancels an armed chord and passes",
+      "passed": true
+    },
+    {
+      "name": "Windows key prevents chord interception",
+      "passed": true
+    },
+    {
+      "name": "Focus change cancels and foreign N up passes",
+      "passed": true
+    },
+    {
+      "name": "Modifier releases after cancellation all pass",
+      "passed": true
+    },
+    {
+      "name": "Other key cancels and passes",
+      "passed": true
+    },
+    {
+      "name": "Session reset cancels pending shortcut",
+      "passed": true
+    },
+    {
+      "name": "Injected modifiers cannot arm shortcut",
+      "passed": true
+    },
+    {
+      "name": "Both control keys must release",
+      "passed": true
+    },
+    {
+      "name": "Final extra control release triggers once",
+      "passed": true
+    },
+    {
+      "name": "Deferred activation waits until all keys are up",
+      "passed": true
+    },
+    {
+      "name": "Deferred activation waits for Ctrl release",
+      "passed": true
+    },
+    {
+      "name": "Deferred activation waits for N release",
+      "passed": true
+    },
+    {
+      "name": "Deferred activation waits for Alt release",
+      "passed": true
+    },
+    {
+      "name": "Deferred activation waits for Windows key release",
+      "passed": true
+    }
+  ],
+  "lifecycleChecks": [
+    {
+      "name": "No owner exists before start",
+      "passed": true
+    },
+    {
+      "name": "First process owns one installed hook",
+      "passed": true
+    },
+    {
+      "name": "Cross-process pipe reports correct owner and scope",
+      "passed": true
+    },
+    {
+      "name": "Second process waits without a second hook",
+      "passed": true
+    },
+    {
+      "name": "Second process does not replace first owner",
+      "passed": true
+    },
+    {
+      "name": "First process exits cleanly",
+      "passed": true
+    },
+    {
+      "name": "Waiting process takes over hook and status pipe",
+      "passed": true
+    },
+    {
+      "name": "No activation occurred during lifecycle test",
+      "passed": true
+    },
+    {
+      "name": "Second process exits cleanly",
+      "passed": true
+    },
+    {
+      "name": "Status pipe closes when last server exits",
+      "passed": true
+    },
+    {
+      "name": "Test owner can terminate unexpectedly",
+      "passed": true
+    },
+    {
+      "name": "Waiting process takes over after abandoned owner mutex",
+      "passed": true
+    },
+    {
+      "name": "Abandoned-mutex successor exits cleanly",
+      "passed": true
+    },
+    {
+      "name": "Simulated hook setup failure is observable",
+      "passed": true
+    },
+    {
+      "name": "Hook setup is retried and recovers",
+      "passed": true
+    },
+    {
+      "name": "Retried listener exits cleanly",
+      "passed": true
+    },
+    {
+      "name": "Isolated failed action invoked",
+      "passed": true
+    },
+    {
+      "name": "Status pipe exposes action failure",
+      "passed": true
+    },
+    {
+      "name": "Isolated successful action invoked",
+      "passed": true
+    },
+    {
+      "name": "Successful action clears previous error",
+      "passed": true
+    },
+    {
+      "name": "Action test exits cleanly",
+      "passed": true
+    },
+    {
+      "name": "Test listener starts with one physical keyboard hook",
+      "passed": true
+    },
+    {
+      "name": "Other-session lock does not remove current hook",
+      "passed": true
+    },
+    {
+      "name": "Own-session lock removes physical keyboard hook",
+      "passed": true
+    },
+    {
+      "name": "Locked listener status reports unregistered and unsafe",
+      "passed": true
+    },
+    {
+      "name": "Locked notification stays latched despite a safe probe",
+      "passed": true
+    },
+    {
+      "name": "Unlock notification alone does not reinstall on unsafe desktop",
+      "passed": true
+    },
+    {
+      "name": "Safe desktop after unlock reinstalls keyboard hook",
+      "passed": true
+    },
+    {
+      "name": "Unsafe polling removes keyboard hook without notification",
+      "passed": true
+    },
+    {
+      "name": "Safe polling reinstalls keyboard hook",
+      "passed": true
+    },
+    {
+      "name": "Session disconnect immediately removes keyboard hook",
+      "passed": true
+    },
+    {
+      "name": "Safe state after disconnect permits reinstall",
+      "passed": true
+    },
+    {
+      "name": "Closing after simulated lock has no installed hook",
+      "passed": true
+    },
+    {
+      "name": "Locked listener exits cleanly",
+      "passed": true
+    },
+    {
+      "name": "Closing locked listener removes status pipe",
+      "passed": true
+    },
+    {
+      "name": "Actual password file unchanged",
+      "passed": true
+    }
+  ],
+  "syntheticInputSent": false,
+  "actualWindowsLock": false,
+  "actualCodexUiTest": false,
+  "sessionProbeSimulated": true,
+  "generatedAt": "2026-10-27T16:43:43.3450389+08:00"
+}

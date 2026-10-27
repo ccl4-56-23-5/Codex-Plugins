@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "count": 19,
+  "checks": [
+    {
+      "name": "resources announced",
+      "passed": true
+    },
+    {
+      "name": "app and lock present",
+      "passed": true
+    },
+    {
+      "name": "global app resource and shortcut schema",
+      "passed": true
+    },
+    {
+      "name": "target is direct action",
+      "passed": true
+    },
+    {
+      "name": "thread entry present",
+      "passed": true
+    },
+    {
+      "name": "resource discovered",
+      "passed": true
+    },
+    {
+      "name": "unknown resource rejected",
+      "passed": true
+    },
+    {
+      "name": "HTML delivered with correct MIME",
+      "passed": true
+    },
+    {
+      "name": "Windows lock guidance present",
+      "passed": true
+    },
+    {
+      "name": "open page has no lock action",
+      "passed": true
+    },
+    {
+      "name": "open page leaves isolated guard unlocked",
+      "passed": true
+    },
+    {
+      "name": "page begins MCP Apps handshake",
+      "passed": true
+    },
+    {
+      "name": "page acknowledges handshake",
+      "passed": true
+    },
+    {
+      "name": "page only queries status initially",
+      "passed": true
+    },
+    {
+      "name": "page displays returned status",
+      "passed": true
+    },
+    {
+      "name": "page lock button calls target",
+      "passed": true
+    },
+    {
+      "name": "page displays successful lock",
+      "passed": true
+    },
+    {
+      "name": "page shortcut status calls target",
+      "passed": true
+    },
+    {
+      "name": "page displays shortcut status",
+      "passed": true
+    }
+  ]
+}

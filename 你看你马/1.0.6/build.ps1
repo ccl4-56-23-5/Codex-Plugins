@@ -1,4 +1,4 @@
-param([string]$InnoCompiler,[switch]$CheckOnly)
+param([string]$InnoCompiler,[switch]$CheckOnly,[string]$OutputDir)
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
 $csc=Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
@@ -6,7 +6,7 @@ if(!(Test-Path -LiteralPath $csc)){throw '.NET Framework 4.8 x64 compiler is req
 $bin=if($CheckOnly){Join-Path $root '.work\check\bin'}else{Join-Path $root 'plugin\bin'}
 New-Item -ItemType Directory -Path $bin -Force|Out-Null
 $icon=Join-Path $root 'plugin\assets\icon.ico'
-& $csc /nologo /target:exe /platform:x64 /optimize+ "/win32icon:$icon" "/out:$bin\PrivacyCurtain.exe" /r:System.Drawing.dll /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll /r:System.Security.dll "$root\PrivacyCurtain.cs" "$root\PasswordSettingsForm.cs"
+& $csc /nologo /target:exe /platform:x64 /optimize+ "/win32icon:$icon" "/out:$bin\PrivacyCurtain.exe" /r:System.Drawing.dll /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll /r:System.Security.dll "$root\PrivacyCurtain.cs" "$root\PasswordSettingsForm.cs" "$root\LegacyLauncher.cs" "$root\SessionSafety.cs" "$root\McpUi.cs" "$root\ScopedShortcut.cs"
 if($LASTEXITCODE){throw 'Application compilation failed.'}
 & $csc /nologo /target:winexe /platform:x64 /optimize+ "/out:$bin\Register.exe" /r:System.Web.Extensions.dll /r:System.Windows.Forms.dll "$root\Register.cs"
 if($LASTEXITCODE){throw 'Registration compilation failed.'}
@@ -16,5 +16,5 @@ if($CheckOnly){Write-Output 'Native source compilation passed; bundled tested bi
 if(!$InnoCompiler){$cmd=Get-Command ISCC.exe -ErrorAction SilentlyContinue;if($cmd){$InnoCompiler=$cmd.Source}}
 if(!$InnoCompiler){$InnoCompiler=Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'}
 if(!(Test-Path -LiteralPath $InnoCompiler)){throw 'Pass -InnoCompiler with the path to Inno Setup 6 ISCC.exe.'}
-& $InnoCompiler "$root\setup.iss"
+if($OutputDir){& $InnoCompiler "/O$OutputDir" "$root\setup.iss"}else{& $InnoCompiler "$root\setup.iss"}
 if($LASTEXITCODE){throw 'Installer build failed.'}

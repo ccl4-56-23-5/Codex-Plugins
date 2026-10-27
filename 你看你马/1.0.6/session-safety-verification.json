@@ -1,0 +1,158 @@
+{
+  "unitChecks": [
+    {
+      "name": "Current real session is interactive and unlocked",
+      "passed": true
+    },
+    {
+      "name": "Active unlocked default desktop allowed",
+      "passed": true
+    },
+    {
+      "name": "Desktop name comparison ignores case",
+      "passed": true
+    },
+    {
+      "name": "Failed query rejected",
+      "passed": true
+    },
+    {
+      "name": "Unexpected information level rejected",
+      "passed": true
+    },
+    {
+      "name": "Other session rejected",
+      "passed": true
+    },
+    {
+      "name": "Disconnected session rejected",
+      "passed": true
+    },
+    {
+      "name": "Locked session rejected",
+      "passed": true
+    },
+    {
+      "name": "Unknown session state rejected",
+      "passed": true
+    },
+    {
+      "name": "Winlogon secure desktop rejected",
+      "passed": true
+    },
+    {
+      "name": "Unknown desktop rejected",
+      "passed": true
+    },
+    {
+      "name": "Empty desktop rejected",
+      "passed": true
+    },
+    {
+      "name": "Unsafe initial probe prevents monitor startup",
+      "passed": true
+    },
+    {
+      "name": "Probe exception fails safely",
+      "passed": true
+    },
+    {
+      "name": "Notification registration and initial state",
+      "passed": true
+    },
+    {
+      "name": "Poll detects unsafe session",
+      "passed": true
+    },
+    {
+      "name": "Poll triggers exactly one cleanup callback",
+      "passed": true
+    },
+    {
+      "name": "Unsafe state remains latched",
+      "passed": true
+    },
+    {
+      "name": "Post unrelated-session test event",
+      "passed": true
+    },
+    {
+      "name": "Unrelated-session notification ignored",
+      "passed": true
+    },
+    {
+      "name": "Post unlock test event",
+      "passed": true
+    },
+    {
+      "name": "Unlock notification does not stop watcher",
+      "passed": true
+    },
+    {
+      "name": "Post own-session lock test event",
+      "passed": true
+    },
+    {
+      "name": "Own-session lock stops watcher",
+      "passed": true
+    },
+    {
+      "name": "Repeated lock notification does not duplicate cleanup",
+      "passed": true
+    }
+  ],
+  "integrationChecks": [
+    {
+      "name": "All session gating and monitor unit checks passed",
+      "passed": true
+    },
+    {
+      "name": "Existing real curtain is not active before isolated guard test",
+      "passed": true
+    },
+    {
+      "name": "Isolated test guard starts with five-second auto release",
+      "passed": true
+    },
+    {
+      "name": "Guard registers Windows session notifications and safe session",
+      "passed": true
+    },
+    {
+      "name": "Test curtain covers screens with screenshot exclusion",
+      "passed": true
+    },
+    {
+      "name": "Simulated lock sent only to test guard session window",
+      "passed": true
+    },
+    {
+      "name": "Guard exits promptly after simulated lock",
+      "passed": true
+    },
+    {
+      "name": "Guard records session-triggered cleanup rather than test timeout",
+      "passed": true
+    },
+    {
+      "name": "Session notification window is destroyed",
+      "passed": true
+    },
+    {
+      "name": "Test guard reports inactive after cleanup",
+      "passed": true
+    },
+    {
+      "name": "Real curtain state remains inactive",
+      "passed": true
+    },
+    {
+      "name": "Real password data unchanged",
+      "passed": true
+    }
+  ],
+  "isolatedData": true,
+  "usedActualWindowsLock": false,
+  "guardMaximumSeconds": 5,
+  "generatedAt": "2026-10-27T16:43:42.3252588+08:00"
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "project": "codex-privacy-curtain",
+  "displayName": "你看你马",
+  "version": "1.0.6",
+  "status": "release",
+  "repository": "https://github.com/ccl4-56-23-5/Codex-Plugins",
+  "basePublishedCommit": "25052fc80f401091960f93259bcbd62bbc38ba36",
+  "sourcePath": "你看你马/1.0.6",
+  "releaseTag": "codex-privacy-curtain-v1.0.6",
+  "installer": {
+    "sha256": "994146907FBE66276C75507B3C9DC07F52FA3E92B166E82286FFC318F1CAAB5F",
+    "bytes": 4707928,
+    "file": "CodexPrivacyCurtain-Setup-1.0.6-x64.exe"
+  },
+  "userTestConfirmation": "User confirmed 1.0.6 and requested a GitHub update on 2026-10-27.",
+  "validation": {
+    "installation": 14,
+    "sessionUnit": 25,
+    "shortcutUnit": 33,
+    "installedSettings": 10,
+    "sessionIntegration": 12,
+    "shortcutLifecycle": 36,
+    "settings": 10,
+    "mcpUi": 19,
+    "installedListener": 6
+  },
+  "privateRuntimeDataIncluded": false
+}

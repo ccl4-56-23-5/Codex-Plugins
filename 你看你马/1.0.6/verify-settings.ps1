@@ -5,12 +5,13 @@ function Check($name,$passed){$checks.Add(@{name=$name;passed=[bool]$passed});if
 $passwordFile=Join-Path $env:LOCALAPPDATA 'CodexPrivacyCurtain\data\password.dpapi'
 $passwordBefore=if(Test-Path -LiteralPath $passwordFile){(Get-FileHash -LiteralPath $passwordFile).Hash}else{$null}
 $si=[Diagnostics.ProcessStartInfo]::new($Binary,'--serve');$si.UseShellExecute=$false;$si.CreateNoWindow=$true
+$si.EnvironmentVariables['CPC_DISABLE_SHORTCUT']='1'
 $si.RedirectStandardInput=$true;$si.RedirectStandardOutput=$true;$si.RedirectStandardError=$true;$si.StandardOutputEncoding=[Text.UTF8Encoding]::new($false)
 $p=[Diagnostics.Process]::Start($si)
 function Request($id,$method,$params){$p.StandardInput.WriteLine((@{jsonrpc='2.0';id=$id;method=$method;params=$params}|ConvertTo-Json -Depth 12 -Compress));$t=$p.StandardOutput.ReadLineAsync();if(!$t.Wait(10000)){throw 'MCP timeout'};$r=$t.Result|ConvertFrom-Json;if($r.error){throw ($r.error|ConvertTo-Json -Compress)};return $r.result}
 try{
-    $init=Request 1 'initialize' @{protocolVersion='2025-11-25';capabilities=@{};clientInfo=@{name='settings-entry-verifier';version='1.0.3'}}
-    Check 'Installed MCP version' ($init.serverInfo.version -eq '1.0.3')
+    $init=Request 1 'initialize' @{protocolVersion='2025-11-25';capabilities=@{};clientInfo=@{name='settings-entry-verifier';version='1.0.6'}}
+    Check 'Installed MCP version' ($init.serverInfo.version -eq '1.0.6')
     Check 'Native settings capability advertised' ($init.capabilities.experimental.'openai/settings'.readTool -eq 'curtain_settings_read' -and $init.capabilities.experimental.'openai/settings'.updateTool -eq 'curtain_settings_update')
     $tools=(Request 2 'tools/list' @{}).tools
     $readTool=$tools|Where-Object name -eq 'curtain_settings_read'
@@ -18,8 +19,9 @@ try{
     Check 'Button has Chinese display title and accepts no arguments' (($tools|Where-Object name -eq 'curtain_open_settings').title -eq '修改密码')
     $read=Request 3 'tools/call' @{name='curtain_settings_read';arguments=@{}}
     Check 'Settings read returns structured content' (!$read.isError -and $read.structuredContent.schema.type -eq 'object' -and $read.content.Count -eq 0)
-    $button=$read.structuredContent.layout[0].items[0]
-    Check 'Settings layout references password action' ($read.structuredContent.layout[0].title -eq '密码与解锁' -and $button.kind -eq 'tool' -and $button.tool -eq 'curtain_open_settings')
+    $button=$read.structuredContent.layout[1].items[0]
+    Check 'Settings layout references password action' ($read.structuredContent.layout[1].title -eq '密码与解锁' -and $button.kind -eq 'tool' -and $button.tool -eq 'curtain_open_settings')
+    Check 'Settings contains manual lock button' ($read.structuredContent.layout[0].title -eq '手动开启' -and $read.structuredContent.layout[0].items[0].tool -eq 'curtain_lock' -and ($tools|Where-Object name -eq 'curtain_lock').title -eq '开启隐私幕布')
     $bad=Request 4 'tools/call' @{name='curtain_settings_update';arguments=@{set=@{password='do-not-accept-in-settings'}}}
     Check 'Password updates through generic settings rejected' $bad.isError
     $empty=Request 5 'tools/call' @{name='curtain_settings_update';arguments=@{set=@{}}}
