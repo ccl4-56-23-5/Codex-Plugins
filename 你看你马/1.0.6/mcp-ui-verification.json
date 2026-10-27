@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "count": 17,
+  "count": 19,
   "checks": [
     {
       "name": "resources announced",
@@ -68,6 +68,14 @@
     },
     {
       "name": "page displays successful lock",
+      "passed": true
+    },
+    {
+      "name": "page shortcut status calls target",
+      "passed": true
+    },
+    {
+      "name": "page displays shortcut status",
       "passed": true
     }
   ]

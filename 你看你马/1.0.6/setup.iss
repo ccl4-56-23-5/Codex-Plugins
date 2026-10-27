@@ -1,4 +1,4 @@
-#define Version "1.0.5"
+#define Version "1.0.6"
 [Setup]
 AppId=CodexPrivacyCurtain
 AppName=你看你马

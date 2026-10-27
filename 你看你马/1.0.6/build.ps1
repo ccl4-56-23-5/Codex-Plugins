@@ -6,7 +6,7 @@ if(!(Test-Path -LiteralPath $csc)){throw '.NET Framework 4.8 x64 compiler is req
 $bin=if($CheckOnly){Join-Path $root '.work\check\bin'}else{Join-Path $root 'plugin\bin'}
 New-Item -ItemType Directory -Path $bin -Force|Out-Null
 $icon=Join-Path $root 'plugin\assets\icon.ico'
-& $csc /nologo /target:exe /platform:x64 /optimize+ "/win32icon:$icon" "/out:$bin\PrivacyCurtain.exe" /r:System.Drawing.dll /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll /r:System.Security.dll "$root\PrivacyCurtain.cs" "$root\PasswordSettingsForm.cs" "$root\LegacyLauncher.cs" "$root\SessionSafety.cs" "$root\McpUi.cs"
+& $csc /nologo /target:exe /platform:x64 /optimize+ "/win32icon:$icon" "/out:$bin\PrivacyCurtain.exe" /r:System.Drawing.dll /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll /r:System.Security.dll "$root\PrivacyCurtain.cs" "$root\PasswordSettingsForm.cs" "$root\LegacyLauncher.cs" "$root\SessionSafety.cs" "$root\McpUi.cs" "$root\ScopedShortcut.cs"
 if($LASTEXITCODE){throw 'Application compilation failed.'}
 & $csc /nologo /target:winexe /platform:x64 /optimize+ "/out:$bin\Register.exe" /r:System.Web.Extensions.dll /r:System.Windows.Forms.dll "$root\Register.cs"
 if($LASTEXITCODE){throw 'Registration compilation failed.'}

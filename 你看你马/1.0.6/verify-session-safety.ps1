@@ -34,7 +34,7 @@ try{
     & $csc /nologo /target:exe /platform:x64 /optimize+ "/out:$unitExe" /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll (Join-Path $root 'SessionSafety.cs') (Join-Path $root 'SessionSafetyUnit.cs')
     if($LASTEXITCODE -ne 0){throw 'Session safety unit compilation failed'}
     $guardExe=Join-Path $bin 'PrivacyCurtain.exe'
-    & $csc /nologo /target:exe /platform:x64 /optimize+ "/out:$guardExe" /r:System.Drawing.dll /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll /r:System.Security.dll (Join-Path $root 'PrivacyCurtain.cs') (Join-Path $root 'PasswordSettingsForm.cs') (Join-Path $root 'LegacyLauncher.cs') (Join-Path $root 'SessionSafety.cs') (Join-Path $root 'McpUi.cs')
+    & $csc /nologo /target:exe /platform:x64 /optimize+ "/out:$guardExe" /r:System.Drawing.dll /r:System.Windows.Forms.dll /r:System.Web.Extensions.dll /r:System.Security.dll (Join-Path $root 'PrivacyCurtain.cs') (Join-Path $root 'PasswordSettingsForm.cs') (Join-Path $root 'LegacyLauncher.cs') (Join-Path $root 'SessionSafety.cs') (Join-Path $root 'McpUi.cs') (Join-Path $root 'ScopedShortcut.cs')
     if($LASTEXITCODE -ne 0){throw 'Guard test compilation failed'}
     $realExe=$guardExe
     Copy-Item -LiteralPath (Join-Path $root 'plugin\assets\wallpaper.jpg') -Destination (Join-Path $assets 'wallpaper.jpg')

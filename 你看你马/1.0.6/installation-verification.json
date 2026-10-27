@@ -1,6 +1,6 @@
 [
   {
-    "name": "Installed 1.0.5 responds and curtain is not active",
+    "name": "Installed 1.0.6 responds and curtain is not active",
     "passed": true
   },
   {
@@ -8,7 +8,7 @@
     "passed": true
   },
   {
-    "name": "Prior unmodified desktop shortcut has a recoverable copy",
+    "name": "No desktop shortcut existed before this update",
     "passed": true
   },
   {
@@ -36,7 +36,7 @@
     "passed": true
   },
   {
-    "name": "Codex plugin cache contains 1.0.5",
+    "name": "Codex plugin cache contains 1.0.6",
     "passed": true
   },
   {

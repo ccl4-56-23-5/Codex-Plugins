@@ -37,7 +37,7 @@ async function main(){
   check('open page leaves isolated guard unlocked',JSON.parse(state.result.content[0].text).locked===false);
   const script=content.text.match(/<script>([\s\S]*?)<\/script>/)[1],posted=[],els={};
   let handler;
-  for(const id of ['message','lock','status','settings'])els[id]={disabled:false,textContent:'',onclick:null};
+  for(const id of ['message','lock','status','shortcut','settings'])els[id]={disabled:false,textContent:'',onclick:null};
   const parent={postMessage:x=>posted.push(x)},window={parent,addEventListener:(event,fn)=>{if(event==='message')handler=fn}};
   vm.runInNewContext(script,{window,document:{getElementById:id=>els[id]},setTimeout:()=>7,clearTimeout:()=>{},Map,Promise,Error,JSON});
   check('page begins MCP Apps handshake',posted[0].method==='ui/initialize'&&posted[0].params.protocolVersion==='2026-01-26');
@@ -54,6 +54,12 @@ async function main(){
   handler({source:parent,data:{jsonrpc:'2.0',id:req2.id,result:{content:[{type:'text',text:'{"locked":true}'}]}}});
   await new Promise(setImmediate);
   check('page displays successful lock',els.message.textContent==='隐私幕布已开启。');
+  els.shortcut.onclick();
+  const req3=posted.filter(x=>x.method==='tools/call').at(-1);
+  check('page shortcut status calls target',req3.params.name==='curtain_shortcut_status');
+  handler({source:parent,data:{jsonrpc:'2.0',id:req3.id,result:{content:[{type:'text',text:'{"running":true,"registered":true,"sessionSafe":true}'}]}}});
+  await new Promise(setImmediate);
+  check('page displays shortcut status',els.message.textContent==='快捷键已启用。');
 }
 main().then(()=>{
   fs.writeFileSync(resultFile,JSON.stringify({passed:true,count:checks.length,checks},null,2));
