@@ -1,34 +1,17 @@
 # Codex插件
 
-Codex桌面插件集合。每个项目只保留当前最新版的源码和安装包。
+Windows 版 Codex 的插件源码和安装包。
 
 | 插件 | 当前版本 | 功能 | 下载与安装 |
 |---|---|---|---|
-| [Codex-DSH插件](Codex-DSH插件/README.md) | 0.2.0+codex.20261003 | 打开DSH会话、验证现有插件、读取真实回复、按授权委派任务 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-v0.2.0) · [安装指南](docs/INSTALLATION.md) |
-| [DSH Control Bridge](DSH-Control插件/README.md) | 1.0.0 | 41个MCP工具：原生API、动态接口、终端流和DOM控件树 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.0) · [安装说明](DSH-Control插件/1.0.0/README.md) |
+| [Codex-DSH插件](Codex-DSH插件/README.md) | 0.2.0+codex.20261003 | 打开 DSH 会话、验证提示词并读取回复 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-v0.2.0) · [安装指南](docs/INSTALLATION.md) |
+| [DSH Control Bridge](DSH-Control插件/README.md) | 1.0.0 | 通过 MCP 操作 DSH 会话、模型、终端和桌面控件 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.0) · [安装说明](DSH-Control插件/1.0.0/README.md) |
 | [你看你马](你看你马/README.md) | 1.0.6 | Codex 前台快捷键开启，兼容 Windows 锁屏 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-privacy-curtain-v1.0.6) · [使用说明](你看你马/1.0.6/README.md) |
 
-## 目录
+构建命令、测试入口和发布步骤见 [开发与发布](docs/DEVELOPMENT.md)。
 
-```text
-Codex-Plugins/
-├─ Codex-DSH插件/0.2.0+codex.20261003/
-├─ DSH-Control插件/1.0.0/
-└─ 你看你马/1.0.6/
-```
+## Codex-DSH 桌面插件文档
 
-安装ZIP包含所需运行依赖，源码与安装文件在版本目录中。内部插件名为`codex-dsh-desktop`，npm版本为0.2.0。
-
-## 使用说明
-
-- [功能与工具](docs/USER_GUIDE.md)
-- [Windows安装、首次市场配置与升级](docs/INSTALLATION.md)
-- [架构与数据流程](docs/ARCHITECTURE.md)
-- [开发与发布](docs/DEVELOPMENT.md)
-- [验证记录与适用范围](docs/VALIDATION.md)
-
-DSH侧配套的[最高指令插件1.1.1](https://github.com/ccl4-56-23-5/DSH-Plugins/tree/main/最高指令插件/1.1.1)在DSH-Plugins仓库。制作并测试插件时由Codex负责实施，DSH只执行明确范围内的验证或用户授权的任务。超时后使用同一runId读取结果，避免重复创建会话。
-
-默认分支保留当前版本；历史 Release 和 Git 提交用于追溯。源码ZIP中的MCP文件是安装前模板，安装器会生成本机路径。
+[工具说明](docs/USER_GUIDE.md) · [架构](docs/ARCHITECTURE.md) · [验证记录](docs/VALIDATION.md)
 
 [MIT许可](LICENSE) · [第三方声明](THIRD_PARTY_NOTICES.md)
