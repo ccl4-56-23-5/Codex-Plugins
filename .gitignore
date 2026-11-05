@@ -20,3 +20,8 @@ codex-prompt-test.json
 
 !DSH-Control插件/1.0.0/dist/
 !DSH-Control插件/1.0.0/dist/*
+!DSH-Control插件/1.0.1/dist/
+!DSH-Control插件/1.0.1/dist/*
+
+!Codex-DSH插件/0.1.0+codex.20260928141608/dist/
+!Codex-DSH插件/0.1.0+codex.20260928141608/dist/*.zip

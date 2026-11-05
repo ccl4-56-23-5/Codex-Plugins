@@ -1,7 +1,5 @@
 # DSH Control Bridge
 
-当前版本：[1.0.0](1.0.0/README.md)。
+[1.0.1 源码与使用说明](1.0.1/README.md) · [Codex 端安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.1) · [DSH 端控制桥 1.0.0](https://github.com/ccl4-56-23-5/DSH-Plugins/releases/tag/dsh-control-v1.0.0)
 
-[Codex端安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.0) · [DSH端配套插件](https://github.com/ccl4-56-23-5/DSH-Plugins/releases/tag/dsh-control-v1.0.0)
-
-41个MCP工具，宿主API＋动态Remote接口＋DOM控件树。无需截图识别。与旧codex-dsh-desktop并存，未覆盖其源码或配置。
+通过 44 项 MCP 工具管理 DSH 会话、模型、终端和桌面。配合 DSH 最高指令 1.1.2，可临时换入测试指令，读取真实模型回复，并在完成或中断后恢复原设置。

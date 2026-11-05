@@ -1,0 +1,22 @@
+{
+  "name": "codex-dsh-desktop",
+  "version": "0.1.0+codex.20260928141608",
+  "description": "Open DeepSeek Harness Desktop and start a visible conversation in its default workspace.",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DeepSeek Harness Desktop",
+    "shortDescription": "Start a DSH Desktop conversation from Codex.",
+    "longDescription": "Creates a conversation in the DeepSeek Harness Desktop default workspace using Windows accessibility controls and verifies the sent message is visible.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "composerIcon": "./assets/deepseek-harness-whale.png",
+    "logo": "./assets/deepseek-harness-whale.png",
+    "logoDark": "./assets/deepseek-harness-whale.png",
+    "capabilities": [],
+    "defaultPrompt": "\u5728 DeepSeek Harness \u4e2d\u65b0\u5efa\u5bf9\u8bdd\u5e76\u53d1\u9001\u4f60\u597d\u3002"
+  },
+  "mcpServers": "./.mcp.json"
+}
