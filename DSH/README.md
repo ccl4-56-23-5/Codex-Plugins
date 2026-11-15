@@ -28,3 +28,5 @@
 已经安装其中一端时，可分别运行组合包内的 `DSH\Install-DSH.ps1` 和 `Codex\Install-Codex.ps1`。DSH 插件管理也支持从组合包添加 `DSH\dsh-control-bridge-1.0.0.tgz`。仅在使用最高指令测试功能时安装 [DSH 最高指令 1.1.2](https://github.com/ccl4-56-23-5/DSH-Plugins/releases/tag/top-directive-v1.1.2)。
 
 DSH 端源码来自 [DSH-Plugins 的 1.0.0 发布快照](https://github.com/ccl4-56-23-5/DSH-Plugins/releases/tag/dsh-control-v1.0.0)。本目录收录双方的对应版本，便于查阅和部署。
+
+[旧版 Codex-DSH 桌面插件归档](archive/Codex-DSH插件/README.md)

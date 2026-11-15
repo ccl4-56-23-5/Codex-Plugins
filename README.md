@@ -9,9 +9,4 @@
 
 构建命令与测试入口见 [开发与发布](docs/DEVELOPMENT.md)。
 
-## 原有交付
-
-- [旧版 Codex-DSH 桌面插件](Codex-DSH插件/README.md) · [历史安装说明](docs/INSTALLATION.md) · [工具说明](docs/USER_GUIDE.md)
-- [你看你马](你看你马/README.md) · [已有安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-privacy-curtain-v1.0.6)
-
 [MIT许可](LICENSE) · [第三方声明](THIRD_PARTY_NOTICES.md)

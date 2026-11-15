@@ -15,13 +15,13 @@ codex-runs.json
 codex-prompt-test.json
 
 # Current published installation package
-!Codex-DSH插件/0.2.0+codex.20261003/dist/
-!Codex-DSH插件/0.2.0+codex.20261003/dist/*.zip
+!DSH/archive/Codex-DSH插件/0.2.0+codex.20261003/dist/
+!DSH/archive/Codex-DSH插件/0.2.0+codex.20261003/dist/*.zip
 
-!DSH-Control插件/1.0.0/dist/
-!DSH-Control插件/1.0.0/dist/*
-!DSH-Control插件/1.0.1/dist/
-!DSH-Control插件/1.0.1/dist/*
+!DSH/codex-dsh-control/1.0.0/dist/
+!DSH/codex-dsh-control/1.0.0/dist/*
+!DSH/codex-dsh-control/1.0.1/dist/
+!DSH/codex-dsh-control/1.0.1/dist/*
 
-!Codex-DSH插件/0.1.0+codex.20260928141608/dist/
-!Codex-DSH插件/0.1.0+codex.20260928141608/dist/*.zip
+!DSH/archive/Codex-DSH插件/0.1.0+codex.20260928141608/dist/
+!DSH/archive/Codex-DSH插件/0.1.0+codex.20260928141608/dist/*.zip

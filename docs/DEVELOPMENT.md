@@ -7,9 +7,8 @@
 | Codex DSH Control | [1.0.1 开发说明](../DSH/codex-dsh-control/1.0.1/README.md) | [组合安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-dsh-control-v1.0.1) |
 | DSH Control Bridge | [1.0.0 开发说明](../DSH/dsh-control-bridge/1.0.0/README.md) | [组合安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-dsh-control-v1.0.1) |
 | WorkBuddy Control | [1.0.0+1](../WorkBuddy/codex-workbuddy-control/1.0.0+1/) | [1.0.0+1 安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-workbuddy-control-v1.0.0%2B1) |
-| 你看你马 | [1.0.6](../你看你马/1.0.6/) | [1.0.6 安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-privacy-curtain-v1.0.6) |
 
-旧 Codex-DSH 桌面插件的源码和安装说明见[归档索引](../Codex-DSH插件/README.md)。
+旧 Codex-DSH 桌面插件的源码和安装说明见[归档索引](../DSH/archive/Codex-DSH插件/README.md)。
 
 ## DSH Control Bridge
 
@@ -29,26 +28,9 @@ pnpm test
 
 单装 Codex 端时，解压 Windows ZIP 后运行 `Install-Codex.ps1`。DSH 安装在其他位置时传入 `-DshRoot`。首次同时部署两端可使用同版组合包。连接描述默认位于 `~/.dsh/control-bridge/connection.json`。测试不同实例时，可通过 `DSH_CONTROL_DESCRIPTOR` 指定该实例的描述文件。
 
-## 你看你马
+## WorkBuddy Control
 
-构建环境为 Windows x64、.NET Framework 4.8 和 Inno Setup 6。编译检查将输出写入 `.work/check/bin`。构建安装包时，在 `-InnoCompiler` 指定 ISCC 的实际路径。
-
-```powershell
-.\build.ps1 -CheckOnly
-.\build.ps1 -InnoCompiler 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' -OutputDir '.\dist'
-```
-
-| 文件 | 用途 |
-| --- | --- |
-| `PrivacyCurtain.cs` | 多屏幕布、输入钩子和 MCP 服务 |
-| `ScopedShortcut.cs` | Codex 前台快捷键、按键释放与恢复监听 |
-| `SessionSafety.cs` | Windows 锁屏、会话状态和输入桌面检查 |
-| `McpUi.cs`、`PasswordSettingsForm.cs` | Codex 控制页和改密窗口 |
-| `Register.cs`、`Unregister.cs`、`setup.iss` | 插件登记、安装和卸载 |
-
-改动快捷键、会话或设置时，运行对应的 `verify-scoped-shortcut.ps1`、`verify-session-safety.ps1`、`verify-mcp-ui.ps1` 或 `verify-settings.ps1`。需要验证桌面交互时，检查 Codex 前台快捷键、锁屏后恢复监听、多屏显示及密码设置。安装步骤见 [版本说明](../你看你马/1.0.6/README.md)。
-
-1.0.4 至 1.0.6 的开发提交在[历史分支](https://github.com/ccl4-56-23-5/CodexBridge/tree/archive/privacy-curtain-development)中。旧版窗口测试在该分支的 `archive/privacy-curtain-1.0.3`。
+在 `WorkBuddy/codex-workbuddy-control/1.0.0+1` 运行 `node --test tests/workbuddy.test.mjs`。Windows 安装与验收步骤见 [WorkBuddy 安装指南](../WorkBuddy/README.md)。
 
 ## 发布
 
