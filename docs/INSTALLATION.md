@@ -1,5 +1,7 @@
 # Windows安装、升级与恢复
 
+本页对应旧版 Codex-DSH 桌面插件。现行桥接请使用 [DSH 安装指南](../DSH/) 或 [WorkBuddy 安装指南](../WorkBuddy/)。
+
 ## 运行条件
 
 - 已安装DSH桌面并初始化`desktop`profile。本次真实验收使用DSH0.2.0-rc.2；其他宿主版本需重新确认接口兼容性。

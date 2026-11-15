@@ -4,15 +4,16 @@
 
 | 插件 | 源码 | 交付 |
 | --- | --- | --- |
-| DSH Control Bridge | [1.0.1 开发说明](../DSH-Control插件/1.0.1/README.md) | [1.0.1 安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.1) |
-| 你看你马 | [1.0.6](../你看你马/1.0.6/) | [1.0.6 安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-privacy-curtain-v1.0.6) |
-| WorkBuddy Control | [1.0.0+1](../WorkBuddy-Control插件/1.0.0+1/) | [1.0.0+1 安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-workbuddy-control-v1.0.0%2B1) |
+| Codex DSH Control | [1.0.1 开发说明](../DSH/codex-dsh-control/1.0.1/README.md) | [组合安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-dsh-control-v1.0.1) |
+| DSH Control Bridge | [1.0.0 开发说明](../DSH/dsh-control-bridge/1.0.0/README.md) | [组合安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-dsh-control-v1.0.1) |
+| WorkBuddy Control | [1.0.0+1](../WorkBuddy/codex-workbuddy-control/1.0.0+1/) | [1.0.0+1 安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-workbuddy-control-v1.0.0%2B1) |
+| 你看你马 | [1.0.6](../你看你马/1.0.6/) | [1.0.6 安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-privacy-curtain-v1.0.6) |
 
 旧 Codex-DSH 桌面插件的源码和安装说明见[归档索引](../Codex-DSH插件/README.md)。
 
 ## DSH Control Bridge
 
-在 `DSH-Control插件/1.0.1` 使用 Node.js 22 和 pnpm。构建将 MCP SDK、Zod 和服务入口打进 `dist/server.mjs`。
+在 `DSH/codex-dsh-control/1.0.1` 使用 Node.js 22 和 pnpm。构建将 MCP SDK、Zod 和服务入口打进 `dist/server.mjs`。
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -47,7 +48,7 @@ pnpm test
 
 改动快捷键、会话或设置时，运行对应的 `verify-scoped-shortcut.ps1`、`verify-session-safety.ps1`、`verify-mcp-ui.ps1` 或 `verify-settings.ps1`。需要验证桌面交互时，检查 Codex 前台快捷键、锁屏后恢复监听、多屏显示及密码设置。安装步骤见 [版本说明](../你看你马/1.0.6/README.md)。
 
-1.0.4 至 1.0.6 的开发提交在[历史分支](https://github.com/ccl4-56-23-5/Codex-Plugins/tree/archive/privacy-curtain-development)中。旧版窗口测试在该分支的 `archive/privacy-curtain-1.0.3`。
+1.0.4 至 1.0.6 的开发提交在[历史分支](https://github.com/ccl4-56-23-5/CodexBridge/tree/archive/privacy-curtain-development)中。旧版窗口测试在该分支的 `archive/privacy-curtain-1.0.3`。
 
 ## 发布
 

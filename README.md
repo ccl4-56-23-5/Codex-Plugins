@@ -1,18 +1,17 @@
-# Codex插件
+# CodexBridge
 
-Windows 版 Codex 的插件源码和安装包。
+在 Windows 上从 Codex 操作 DSH 和 WorkBuddy。每套桥接的源码和安装指南放在对应目录。
 
-| 插件 | 当前版本 | 功能 | 下载与安装 |
-|---|---|---|---|
-| [Codex-DSH插件（归档）](Codex-DSH插件/README.md) | 0.2.0+codex.20261003 | DSH 控制桥的前代插件 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-v0.2.0) · [安装指南](docs/INSTALLATION.md) |
-| [DSH Control Bridge](DSH-Control插件/README.md) | 1.0.1 | 控制 DSH 桌面并验证最高指令 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.1) · [安装说明](DSH-Control插件/1.0.1/README.md) |
-| [你看你马](你看你马/README.md) | 1.0.6 | Codex 前台快捷键开启，兼容 Windows 锁屏 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-privacy-curtain-v1.0.6) · [使用说明](你看你马/1.0.6/README.md) |
-| [WorkBuddy Control](WorkBuddy-Control插件/1.0.0+1/README.md) | 1.0.0+1 | 从 Codex 操作 Windows 版 WorkBuddy 的任务与回复 | [安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-workbuddy-control-v1.0.0%2B1) |
+| 目录 | 插件 | 安装 |
+| --- | --- | --- |
+| [DSH](DSH/) | Codex 端 1.0.1、DSH 端 1.0.0 | 下载组合包，运行 `Install-All.ps1`。[安装指南](DSH/#安装) |
+| [WorkBuddy](WorkBuddy/) | Codex 端 1.0.0+1 | 下载 Windows ZIP，运行 `Install.ps1`。[安装指南](WorkBuddy/#安装) |
 
-构建命令、测试入口和发布步骤见 [开发与发布](docs/DEVELOPMENT.md)。
+构建命令与测试入口见 [开发与发布](docs/DEVELOPMENT.md)。
 
-## Codex-DSH 桌面插件文档
+## 原有交付
 
-[工具说明](docs/USER_GUIDE.md) · [架构](docs/ARCHITECTURE.md) · [验证记录](docs/VALIDATION.md)
+- [旧版 Codex-DSH 桌面插件](Codex-DSH插件/README.md) · [历史安装说明](docs/INSTALLATION.md) · [工具说明](docs/USER_GUIDE.md)
+- [你看你马](你看你马/README.md) · [已有安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-privacy-curtain-v1.0.6)
 
 [MIT许可](LICENSE) · [第三方声明](THIRD_PARTY_NOTICES.md)

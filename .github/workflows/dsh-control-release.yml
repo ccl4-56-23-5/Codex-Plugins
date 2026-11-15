@@ -2,7 +2,7 @@ name: DSH Control checks and release
 on:
   push:
     branches: [main]
-    paths: ['DSH-Control插件/**', '.github/workflows/dsh-control-release.yml']
+    paths: ['DSH/codex-dsh-control/**', '.github/workflows/dsh-control-release.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,9 +15,10 @@ jobs:
         with:
           node-version: 24
           package-manager-cache: false
-      - run: node --test 'DSH-Control插件/1.0.1/scripts/prompt-test.test.mjs'
-      - run: node 'DSH-Control插件/1.0.1/scripts/check-package.mjs'
+      - run: node --test 'DSH/codex-dsh-control/1.0.1/scripts/prompt-test.test.mjs'
+      - run: node 'DSH/codex-dsh-control/1.0.1/scripts/check-package.mjs'
   release:
+    if: github.event_name == 'workflow_dispatch'
     needs: verify
     runs-on: ubuntu-latest
     permissions:
@@ -32,7 +33,7 @@ jobs:
         with:
           script: |
             const fs=require('fs'),cp=require('child_process'),crypto=require('crypto');
-            const dir='DSH-Control插件/1.0.1',tag='codex-dsh-control-v1.0.1',scope=context.repo;
+            const dir='DSH/codex-dsh-control/1.0.1',tag='codex-dsh-control-v1.0.1',scope=context.repo;
             const head=await github.rest.repos.getBranch({...scope,branch:'main'});
             if(head.data.commit.sha!==context.sha)throw new Error('Obsolete commit');
             const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
