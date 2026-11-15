@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | DSH Control Bridge | [1.0.1 开发说明](../DSH-Control插件/1.0.1/README.md) | [1.0.1 安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-dsh-control-v1.0.1) |
 | 你看你马 | [1.0.6](../你看你马/1.0.6/) | [1.0.6 安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-privacy-curtain-v1.0.6) |
+| WorkBuddy Control | [1.0.0+1](../WorkBuddy-Control插件/1.0.0+1/) | [1.0.0+1 安装包](https://github.com/ccl4-56-23-5/Codex-Plugins/releases/tag/codex-workbuddy-control-v1.0.0%2B1) |
 
 旧 Codex-DSH 桌面插件的源码和安装说明见[归档索引](../Codex-DSH插件/README.md)。
 

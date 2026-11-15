@@ -1,0 +1,19 @@
+{
+  "name": "codex-workbuddy-control",
+  "version": "1.0.0+1",
+  "description": "通过 Windows 无障碍控件操作 WorkBuddy 桌面端。",
+  "author": {
+    "name": "ccl4-56-23-5"
+  },
+  "repository": "https://github.com/ccl4-56-23-5/Codex-Plugins",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "WorkBuddy Control",
+    "shortDescription": "在 Codex 内操作 Windows 版 WorkBuddy",
+    "longDescription": "打开 WorkBuddy，创建或选择任务，填写草稿、发送、读取当前可见回复和停止生成。",
+    "developerName": "ccl4-56-23-5",
+    "category": "Productivity",
+    "defaultPrompt": "查看 WorkBuddy 最新任务和当前进度。"
+  }
+}

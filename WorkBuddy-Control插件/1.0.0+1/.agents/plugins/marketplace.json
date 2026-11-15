@@ -1,0 +1,20 @@
+{
+  "name": "workbuddy-tools",
+  "interface": {
+    "displayName": "WorkBuddy Tools"
+  },
+  "plugins": [
+    {
+      "name": "codex-workbuddy-control",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex-workbuddy-control"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
