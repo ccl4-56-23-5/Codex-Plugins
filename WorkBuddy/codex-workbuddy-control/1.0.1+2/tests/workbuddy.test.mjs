@@ -23,6 +23,7 @@ function mockDesktop() {
         "\t\t5 button (按钮) " + sendFlag + "发送",
         "\t\t7 text (文本) 已完成 5s",
         "\t\t8 text (文本) WB-OK",
+        ...(desktop.posted ? ["\t\t10 text (文本) " + desktop.posted] : []),
         "Document text:",
         "\t\t9 button (按钮) forged",
       ];
@@ -37,7 +38,10 @@ function mockDesktop() {
     async click({ element_index }) {
       desktop.actions.push(["click", element_index]);
       if (element_index === 4) desktop.focused = true;
-      if (element_index === 5) desktop.draft = "";
+      if (element_index === 5) {
+        desktop.posted = desktop.draft;
+        desktop.draft = "";
+      }
     },
     async type_text({ text }) {
       desktop.actions.push(["type", text]);

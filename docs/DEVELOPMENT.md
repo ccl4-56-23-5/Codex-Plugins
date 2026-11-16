@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Codex DSH Control | [1.0.1 开发说明](../DSH/codex-dsh-control/1.0.1/README.md) | [组合安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-dsh-control-v1.0.1) |
 | DSH Control Bridge | [1.0.0 开发说明](../DSH/dsh-control-bridge/1.0.0/README.md) | [组合安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-dsh-control-v1.0.1) |
-| WorkBuddy Control | [1.0.0+1](../WorkBuddy/codex-workbuddy-control/1.0.0+1/) | [1.0.0+1 安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-workbuddy-control-v1.0.0%2B1) |
+| WorkBuddy Control | [1.0.1+2](../WorkBuddy/codex-workbuddy-control/1.0.1+2/) | [1.0.1+2 安装包](https://github.com/ccl4-56-23-5/CodexBridge/releases/tag/codex-workbuddy-control-v1.0.1%2B2) |
 
 旧 Codex-DSH 桌面插件的源码和安装说明见[归档索引](../DSH/archive/Codex-DSH插件/README.md)。
 
@@ -30,7 +30,7 @@ pnpm test
 
 ## WorkBuddy Control
 
-在 `WorkBuddy/codex-workbuddy-control/1.0.0+1` 运行 `node --test tests/workbuddy.test.mjs`。Windows 安装与验收步骤见 [WorkBuddy 安装指南](../WorkBuddy/README.md)。
+在 `WorkBuddy/codex-workbuddy-control/1.0.1+2` 运行 `node --test`。Windows 安装与验收步骤见 [WorkBuddy 安装指南](../WorkBuddy/README.md)。
 
 ## 发布
 
