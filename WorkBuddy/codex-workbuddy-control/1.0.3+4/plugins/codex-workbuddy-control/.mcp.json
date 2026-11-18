@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "workbuddy": {
+      "command": "node",
+      "args": ["./skills/control-workbuddy/mcp.mjs"],
+      "cwd": "."
+    }
+  }
+}
