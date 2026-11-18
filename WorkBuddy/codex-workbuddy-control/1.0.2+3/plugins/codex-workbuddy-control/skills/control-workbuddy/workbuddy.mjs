@@ -8,6 +8,8 @@ const STOP = /^(停止|停止生成|Stop|Stop generating)$/i;
 const GROUP_OR_MODEL = /^(选择分组|Select group|Choose group|Select model\s*:.*)$/i;
 const WAIT_MS = 3200;
 const REFRESH_MS = 180;
+const STARTUP_ATTEMPTS = 20;
+const STARTUP_POLL_MS = 500;
 const CONTROL_ROLES = new Set([
   "button", "menu item", "tab item", "check box", "radio button",
   "combo box", "list item", "tree item", "hyperlink",
@@ -141,10 +143,52 @@ function postedCount(observation, prompt) {
 }
 
 async function findWindow(sky) {
-  const windows = (await sky.list_windows()).filter(({ app, title }) =>
+  let discovered;
+  try {
+    discovered = await sky.list_windows();
+  } catch (error) {
+    throw new Error(`无法枚举 WorkBuddy 主窗口（${error.message}）。`, { cause: error });
+  }
+  const windows = discovered.filter(({ app, title }) =>
     /(?:^|[\\/:])WorkBuddy\.exe$/i.test(app) && MAIN_TITLE.test(title));
   if (windows.length > 1) throw new Error("发现多个 WorkBuddy 主窗口，请先确定要操作的窗口。");
   return windows[0];
+}
+
+async function launchWorkBuddy(sky, executablePath) {
+  let app = executablePath;
+  if (!app) {
+    const apps = (await sky.list_apps()).filter(({ displayName }) => MAIN_TITLE.test(displayName));
+    if (apps.length > 1) throw new Error("发现多个 WorkBuddy 安装，请先打开要操作的客户端。");
+    app = apps[0]?.id ?? WORKBUDDY_APP;
+  }
+  try {
+    await sky.launch_app({ app });
+  } catch (error) {
+    const instruction = /app approval timed out/i.test(error.message)
+      ? "等待 Codex 应用审批超时。请解锁 Windows，查看 Codex 中的 WorkBuddy 授权请求并处理，再调用 open()。"
+      : "WorkBuddy 启动未确认。请检查 Codex 的应用审批与 WorkBuddy 安装，再调用 open()。";
+    throw new Error(`${instruction}（${error.message}）`, { cause: error });
+  }
+}
+
+async function activateWorkBuddy(sky, candidate) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const target = await sky.get_window({ id: candidate.id, app: candidate.app });
+      await sky.activate_window({ window: target });
+      return target;
+    } catch (error) {
+      if (!attempt && /failed to activate captured window/i.test(error.message)) {
+        candidate = await findWindow(sky);
+        if (candidate) continue;
+      }
+      throw new Error(
+        `无法接管 WorkBuddy 主窗口。请确认 Windows 已解锁，从任务栏将 WorkBuddy 切到前台并确认客户端已就绪，再调用 open()。（${error.message}）`,
+        { cause: error },
+      );
+    }
+  }
 }
 
 function launchTaskLink(executable, uri) {
@@ -221,24 +265,40 @@ export function createWorkBuddy(sky, launch = launchTaskLink) {
   }
 
   return {
-    async open() {
+    async open({ executablePath } = {}) {
       last = undefined;
       visualFocus = undefined;
+      window = undefined;
+      if (executablePath !== undefined &&
+          (typeof executablePath !== "string" || !/^(?:[a-z]:[\\/]|\\\\)/i.test(executablePath) ||
+          !/^WorkBuddy\.exe$/i.test(win32.basename(executablePath)))) {
+        throw new Error("请提供已安装 WorkBuddy.exe 的完整路径。");
+      }
       let candidate = await findWindow(sky);
       if (!candidate) {
-        const apps = (await sky.list_apps()).filter((app) => /^WorkBuddy$/i.test(app.displayName));
-        if (apps.length > 1) throw new Error("发现多个 WorkBuddy 安装，请先打开要操作的客户端。");
-        await sky.launch_app({ app: apps[0]?.id ?? WORKBUDDY_APP });
-        for (let attempt = 0; !candidate && attempt < 20; attempt++) {
-          await new Promise((resolve) => setTimeout(resolve, 500));
+        await launchWorkBuddy(sky, executablePath);
+        for (let attempt = 0; !candidate && attempt < STARTUP_ATTEMPTS; attempt++) {
           candidate = await findWindow(sky);
+          if (!candidate) await new Promise((resolve) => setTimeout(resolve, STARTUP_POLL_MS));
         }
       }
-      if (!candidate) throw new Error("未找到 WorkBuddy 主窗口。请打开已登录的 Windows 客户端。");
+      if (!candidate) {
+        throw new Error("启动请求已返回，但未发现 WorkBuddy 主窗口。请检查任务栏、托盘或启动对话框，再调用 open()。");
+      }
 
-      window = await sky.get_window({ id: candidate.id, app: candidate.app });
-      await sky.activate_window({ window });
-      return observe();
+      window = await activateWorkBuddy(sky, candidate);
+      try {
+        await waitFor(({ result }) => result.readable);
+        if (last.result.readable) return last.result;
+        throw new Error("主窗口尚未提供可读的 WorkBuddy 界面");
+      } catch (error) {
+        window = undefined;
+        last = undefined;
+        throw new Error(
+          `无法读取 WorkBuddy。请确认客户端已加载、登录，且启动对话框已处理，再调用 open()。（${error.message}）`,
+          { cause: error },
+        );
+      }
     },
     observe,
     async prefillNew(text) {

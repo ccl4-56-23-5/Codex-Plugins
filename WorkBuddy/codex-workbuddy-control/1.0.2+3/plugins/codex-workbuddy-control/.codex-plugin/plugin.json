@@ -1,6 +1,6 @@
 {
   "name": "codex-workbuddy-control",
-  "version": "1.0.1+2",
+  "version": "1.0.2+3",
   "description": "通过 Windows Computer Use 操作 WorkBuddy 桌面端。",
   "author": {
     "name": "ccl4-56-23-5"

@@ -119,6 +119,87 @@ test("only the exact WorkBuddy main window is accepted", async () => {
   await assert.rejects(wb.open(), /多个/);
 });
 
+test("cold open launches a registered app once and waits for its workspace", async () => {
+  const desktop = mockDesktop();
+  const { sky } = desktop;
+  const getState = sky.get_window_state;
+  let launched = false;
+  let snapshots = 0;
+  sky.list_windows = async () => launched ? [window] : [];
+  sky.list_apps = async () => [{ id: "WorkBuddy.WorkBuddy", displayName: "WorkBuddy", windows: [] }];
+  sky.launch_app = async ({ app }) => {
+    desktop.actions.push(["launch", app]);
+    launched = true;
+  };
+  sky.get_window_state = async () => ++snapshots === 1 ? { window, accessibility: null } : getState();
+
+  const state = await createWorkBuddy(sky).open();
+  assert.equal(state.readable, true);
+  assert.equal(snapshots, 2);
+  assert.deepEqual(desktop.actions, [["launch", "WorkBuddy.WorkBuddy"]]);
+});
+
+test("an approval timeout does not relaunch, even if the app window appears", async () => {
+  const desktop = mockDesktop();
+  const { sky } = desktop;
+  const executablePath = "D:\\Programs\\WorkBuddy\\WorkBuddy.exe";
+  const approvalTimeout = new Error("Computer Use app approval timed out");
+  let launched = false;
+  sky.list_windows = async () => launched ? [window] : [];
+  sky.list_apps = async () => assert.fail("explicit path should be used");
+  sky.launch_app = async ({ app }) => {
+    desktop.actions.push(["launch", app]);
+    launched = true;
+    throw approvalTimeout;
+  };
+  const wb = createWorkBuddy(sky);
+  await assert.rejects(wb.open({ executablePath: "WorkBuddy.exe" }), /完整路径/);
+  await assert.rejects(wb.open({ executablePath }), {
+    message: /等待 Codex 应用审批超时.*Computer Use app approval timed out/,
+    cause: approvalTimeout,
+  });
+  await assert.rejects(wb.observe(), /先调用 open/);
+  assert.equal((await wb.open()).readable, true);
+  assert.deepEqual(desktop.actions, [["launch", executablePath]]);
+});
+
+test("an activation failure refreshes the target once without launching or sending input", async () => {
+  const desktop = mockDesktop();
+  const { sky } = desktop;
+  const refreshed = { ...window, id: 42 };
+  const activated = [];
+  let enumerations = 0;
+  sky.list_windows = async () => [++enumerations === 1 ? window : refreshed];
+  sky.get_window = async ({ id }) => id === window.id ? window : refreshed;
+  sky.activate_window = async ({ window: target }) => {
+    activated.push(target.id);
+    if (target === window) throw new Error("failed to activate captured window");
+  };
+  const getState = sky.get_window_state;
+  sky.get_window_state = async ({ window: target }) => ({ ...await getState(), window: target });
+
+  assert.equal((await createWorkBuddy(sky).open()).window.id, refreshed.id);
+  assert.deepEqual(activated, [window.id, refreshed.id]);
+  assert.deepEqual(desktop.actions, []);
+});
+
+test("a failed reopen invalidates the previously active window and controls", async () => {
+  const desktop = mockDesktop();
+  const wb = createWorkBuddy(desktop.sky);
+  await wb.open();
+  let attempts = 0;
+  desktop.sky.activate_window = async () => {
+    attempts++;
+    throw new Error("failed to activate captured window");
+  };
+
+  await assert.rejects(wb.open(), /请确认 Windows 已解锁.*failed to activate captured window/);
+  assert.equal(attempts, 2);
+  await assert.rejects(wb.click(2), /失效/);
+  await assert.rejects(wb.observe(), /先调用 open/);
+  assert.deepEqual(desktop.actions, []);
+});
+
 test("click errors invalidate the prior observation", async () => {
   const desktop = mockDesktop();
   const wb = createWorkBuddy(desktop.sky);
